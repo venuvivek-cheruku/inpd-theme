@@ -1,0 +1,292 @@
+section.woo-login-container {
+  padding: 70px 0;
+  padding-top: 200px;
+  @media screen and (max-width: 768px) {
+    padding-top: 150px;
+  }
+  .title {
+    text-align: center;
+  }
+
+  .login-signup-container {
+    margin-top: 4rem;
+    .woocommerce-error {
+      border-top-color: $dark-blue;
+      background: transparent;
+      font-size: 16px;
+      box-shadow: 1px 2px #0000000d;
+    }
+
+    h2 {
+      font-size: 28px;
+      line-height: 36px;
+    }
+
+    .woocommerce-form label {
+      font-size: 15px;
+      font-weight: 600;
+    }
+
+    .woocommerce .col2-set .col-1,
+    .woocommerce-page .col2-set .col-1,
+    .woocommerce .col2-set .col-2,
+    .woocommerce-page .col2-set .col-2 {
+      width: 45%;
+
+      @media screen and (max-width: 768px) {
+        width: 100%;
+      }
+    }
+    @media screen and (max-width: 768px) {
+      .woocommerce .col2-set .col-2,
+      .woocommerce-page .col2-set .col-2 {
+        margin-top: 4rem;
+      }
+    }
+
+    .woocommerce-LostPassword.lost_password:not(.inpd) {
+      display: none !important;
+    }
+
+    .woocommerce-form-login__submit,
+    .woocommerce-form-register__submit {
+      width: fit-content;
+      padding: 10px 25px;
+      padding-right: 50px;
+      text-decoration: none;
+      outline: unset !important;
+      border-radius: 20px;
+      border: 1px solid $dark-blue;
+      position: relative;
+      transition: all 333ms ease;
+      background: $dark-blue;
+      color: $white;
+      &:hover {
+        padding-right: 68px;
+      }
+      &:after {
+        content: "";
+        background: url("/wp-content/uploads/2024/06/arrow-left-white.svg")
+          no-repeat center center / contain;
+        width: 32px;
+        height: 14px;
+        position: absolute;
+        right: 10px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+      }
+      &.outline {
+        background: transparent;
+        color: $white;
+        &:after {
+          background: url("/wp-content/uploads/2024/07/nav-arrow-right.svg")
+            no-repeat center center / contain;
+        }
+      }
+    }
+
+    .woocommerce form.checkout_coupon,
+    .woocommerce form.login,
+    .woocommerce form.register {
+      border: none;
+      padding: 0px;
+    }
+
+    .woocommerce form .form-row input.input-text,
+    .woocommerce form .form-row textarea {
+      padding: 0.5rem;
+    }
+  }
+
+  .woocommerce-privacy-policy-text {
+    opacity: 0.65;
+    font-size: 14px;
+    line-height: 18px;
+  }
+
+  .lost_password.inpd a {
+    font-size: 16px;
+    line-height: 18px;
+    text-decoration: none;
+  }
+}
+
+// woocommerce single page styles
+
+section.woo-single-container {
+  position: relative;
+  padding: 70px 0;
+  padding-top: 200px;
+  @media screen and (max-width: 768px) {
+    padding-top: 120px;
+  }
+
+  .right-for-you-text {
+    color: $dark-blue;
+    opacity: 0.8;
+    text-decoration: underline;
+    text-decoration-style: solid;
+    text-underline-offset: 6px;
+  }
+  #variant-table,
+  .pvtfw_init_variation_table {
+    display: none !important;
+  }
+  .course-info {
+    margin-top: 2rem;
+    .course-details {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      .course-item {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem;
+        flex: 1;
+        h5 {
+          margin-bottom: 0px;
+        }
+        p {
+          opacity: 0.8;
+        }
+      }
+    }
+  }
+  .course-actions {
+    margin: 2rem 0rem;
+    a {
+      cursor: pointer;
+    }
+    .siteCTA.blue-border {
+      margin-left: 2rem;
+    }
+  }
+
+  .course-variants-modal {
+    display: none;
+    position: fixed;
+    z-index: 999999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+
+    /* Modal content */
+    .modal-content {
+      background-color: white;
+      margin: 3% auto;
+      padding: 30px;
+      border: 1px solid #888;
+      width: 80%;
+      position: relative;
+
+      @media screen and (max-width: 768px) {
+        width: 90%;
+      }
+
+      #variant-table,
+      .pvtfw_init_variation_table {
+        display: block !important;
+      }
+      h2 {
+        margin-top: -30px;
+        font-size: 26px;
+      }
+
+      /* Close icon (X) */
+      .close-modal {
+        color: $dark-blue;
+        cursor: pointer;
+        display: flex;
+        gap: 0.5rem;
+        justify-content: end;
+        align-items: center;
+        span {
+          font-size: 30px;
+        }
+      }
+
+      .close-modal:hover,
+      .close-modal:focus {
+        color: red;
+        text-decoration: none;
+        cursor: pointer;
+      }
+
+      .pvtfw_variant_table_block {
+        .variant {
+          width: 100%;
+          thead {
+            background: #102e432a;
+            color: $dark-blue;
+          }
+          .pvtfw_variant_table_cart_btn {
+            background-color: $dark-blue;
+            border-radius: 30px;
+          }
+          td {
+            font-size: 17px;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+.woocommerce-MyAccount-content {
+  a {
+      color: #102e43;
+  }
+  .woocommerce-info {
+      border-color: #102e43;
+  }
+  .woocommerce-Button, .button {
+      background: #102e43 !important;
+      color: #fff !important;
+      border: 1px solid #102e43;
+      border-radius: 0 !important;
+  }
+  .woocommerce-info::before {
+      color: #102e43;
+  }
+  header {
+      position: relative;
+      text-align: left;
+      margin-bottom: 30px;
+      h3, a {
+          float: none;
+          width: 100%;
+          text-align: left;
+      }
+  }
+}
+.woocommerce-MyAccount-navigation {
+  ul {
+      margin: 0;
+      padding: 0;
+      list-style-type: none;
+      li {
+          padding: 10px 20px;
+          border: 1px solid #102e43;
+          transition: all 333ms ease;
+          cursor: pointer;
+          &:not(:last-child) {
+              margin-bottom: 10px;
+          }
+          a {
+              text-decoration: none;
+              color: #102e43;
+          }
+          &.is-active, &:hover {
+              background: #102e43;
+              a {
+                  color: #fff;
+              }
+          }
+      }
+  }
+}

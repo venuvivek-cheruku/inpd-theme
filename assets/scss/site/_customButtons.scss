@@ -1,0 +1,111 @@
+.siteCTA {
+    padding: 10px 25px;
+    padding-right: 50px;
+    text-decoration: none;
+    outline: unset !important;
+    border-radius: 20px;
+    border: 1px solid $white;
+    position: relative;
+    color: $dark-blue;
+    background: $white;
+    transition: all 333ms ease;
+    &:hover {
+        padding-right: 68px;
+    }
+    &:after {
+        content: '';
+        background: url('/wp-content/uploads/2024/06/arrow-right-blue.svg') no-repeat center center / contain;
+        width: 32px;
+        height: 14px;
+        position: absolute;
+        right: 10px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+    }
+    &.outline {
+        background: transparent;
+        color: $white;
+        &:after {
+            background: url('/wp-content/uploads/2024/07/nav-arrow-right.svg') no-repeat center center / contain;
+        }
+    }
+    &.compact {
+        padding: 7px 15px;
+        padding-right: 40px;
+        &:after {
+            width: 27px;
+            height: 10px;
+        }
+        &:hover {
+            padding-right: 48px;
+        }
+    }
+    &.blue {
+        background: $dark-blue;
+        color: $white;
+        border-color: $dark-blue;
+        &:after {
+            background: url('/wp-content/uploads/2024/06/arrow-left-white.svg') no-repeat center center / contain;
+        }
+    }
+    &.blue-border {
+        border-color: $blue;
+    }
+    .no-arrow {
+        padding-right: 25px;
+        &:after {
+            all: unset;
+        }
+    }
+    &.light-blue {
+        background: $light-blue;
+        border-color: $light-blue;
+        color: $blue;
+        &:hover {
+            background: $dark-blue;
+            color: $white;
+            border-color: $dark-blue;
+        }
+    }
+    &.download {
+        &:after {
+            content: '';
+            background: url('/wp-content/uploads/2024/07/download-icon.svg') no-repeat center center / contain;
+            width: 19px;
+            height: 24px;
+            position: absolute;
+            right: 22px;
+            top: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    }
+}
+
+.arrow-cta {
+    position: relative;
+    color: $dark-blue;
+    text-decoration: none;
+    padding-right: 50px;
+    &.light-blue {
+        background: $light-blue;
+        border-color: $light-blue;
+        color: $blue;
+    }
+    &:after {
+        content: '';
+        background: url('/wp-content/uploads/2024/07/blue-nav-arrow-right.svg') no-repeat center center / contain;
+        width: 32.5px;
+        height: 14px;
+        position: absolute;
+        top: 2px;
+        right: 11px;
+        transition: all 333ms ease;
+    }
+    &:hover {
+        &:after {
+            right: 5px;
+        }
+    }
+}

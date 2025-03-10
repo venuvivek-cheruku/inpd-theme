@@ -1,0 +1,34 @@
+//Core Styles
+@import "core/wordpress";
+@import "core/mixins";
+@import "site/colours";
+@import "site/coreStyles";
+@import "site/fonts";
+@import "site/customButtons";
+@import "site/typography";
+
+//Header
+@import "partials/header";
+
+//Partials
+
+//Blocks
+
+//Pages
+@import "pages/wooLogin";
+@import "pages/wooCart";
+@import "pages/wooProduct";
+@import "pages/contactPage";
+@import "pages/page";
+@import "pages/case-study";
+@import "pages/news";
+@import "pages/courses";
+@import "pages/legalPages";
+
+//Footer
+@import "partials/header";
+@import "partials/footer";
+
+//Responsive Styles
+@import "responsive-styles/mobile";
+@import "responsive-styles/tablet";

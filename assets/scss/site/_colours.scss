@@ -1,0 +1,19 @@
+$dark-blue: #102E43;
+$blue: #536878;
+$light-blue: #C3DFE0;
+$offwhite: #F3F4F6;
+$white: #ffffff;
+
+
+.dark-blue-bg {
+    background: $dark-blue;
+    .row {
+        color: $white;
+    }
+}
+.light-blue-bg {
+    background: $light-blue;
+}
+.grey-bg {
+    background: $offwhite;
+}

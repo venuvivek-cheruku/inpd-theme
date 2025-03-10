@@ -1,0 +1,53 @@
+@font-face {
+    font-family: 'Gilroy';
+    src: url('../fonts/Gilroy-Regular.woff') format('woff');
+}
+@font-face {
+    font-family: 'GilroySemiBold';
+    src: url('../fonts/Gilroy-SemiBold.woff') format('woff');
+}
+@font-face {
+    font-family: 'GilroyBold';
+    src: url('../fonts/Gilroy-Bold.woff') format('woff');
+}
+
+main {
+    font-family: 'Gilroy', sans-serif;
+    font-size: 19px;
+    line-height: 28px;
+}
+
+h1 {
+    font-size: 48px;
+    line-height: 60px;
+}
+h2 {
+    font-size: 36px;
+    line-height: 44px;
+}
+h3 {
+    font-size: 30px;
+    line-height: 42px;
+}
+h4 {
+    font-size: 24px;
+    line-height: 32px;
+}
+h5 {
+}
+h6 {
+}
+strong {
+    font-family: 'GilroyBold', sans-serif;
+}
+.semi-bold {
+    font-family: 'GilroySemiBold', sans-serif;
+}
+.font-xl {
+    font-size: 60px;
+    line-height: 100%;
+}
+.font-xxl {
+    font-size: 80px;
+    line-height: 100%;
+}
