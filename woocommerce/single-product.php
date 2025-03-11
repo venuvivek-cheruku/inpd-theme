@@ -154,7 +154,7 @@ section.imgleft-contr.woo-product-container {
                         <div class="modal-content">
                             <span id="courseVariantsCloseModal" class="close-modal">Close <span>&times;</span></span>
                             <div class="container">
-                                <?php echo do_shortcode('[pvtfw_table_display]') ?>
+                                <?php echo do_shortcode('[pvtfw_table_display id="' . esc_attr($product_id) . '"]'); ?>
                             </div>
                         </div>
                     </div>
