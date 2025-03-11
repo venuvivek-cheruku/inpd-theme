@@ -19,6 +19,23 @@
  */
 ?>
 <style>
+.woocommerce #content div.product div.summary,
+.woocommerce div.product div.summary,
+.woocommerce-page #content div.product div.summary,
+.woocommerce-page div.product div.summary {
+    float: right;
+    width: 55% !important;
+    clear: none;
+}
+
+.woocommerce #content div.product div.images,
+.woocommerce div.product div.images,
+.woocommerce-page #content div.product div.images,
+.woocommerce-page div.product div.images {
+    float: left;
+    width: 40% !important;
+}
+
 section.woo-single-container.enhanced {
     position: relative;
     padding: 0 0;
@@ -670,28 +687,30 @@ if ($product && $product->is_type('variable')) {
 
     foreach ($variations as $variation) {
         $variation_id = $variation['variation_id'];
-        $date = $variation['attributes']['attribute_dates'];
-        $time = $variation['attributes']['attribute_time'];
-        $location = $variation['attributes']['attribute_location'];
-        $programme_type = $variation['attributes']['attribute_programme-type']; // Corrected slug
 
-        $price = wc_price($variation['display_price']);
-        $stock = $variation['max_qty'];
+        // Handle undefined keys by setting defaults
+        $date = $variation['attributes']['attribute_dates'] ?? 'N/A';
+        $time = $variation['attributes']['attribute_time'] ?? 'N/A';
+        $location = $variation['attributes']['attribute_location'] ?? 'Online';
+        $programme_type = $variation['attributes']['attribute_programme-type'] ?? 'Other';
+
+        $price = wc_price($variation['display_price'] ?? 0);
+        $stock = $variation['max_qty'] ?? 0;
         $availability = ($stock > 0) ? "Available: $stock space(s) remaining" : "Fully booked";
 
-        // Generate unique Add to Cart URL for each variant
+        // Generate unique Add to Cart URL safely
         $add_to_cart_url = wc_get_cart_url() . "?add-to-cart=" . $product_id . "&variation_id=" . $variation_id . 
-        "&attribute_dates=" . urlencode($date) . 
-        "&attribute_time=" . urlencode($time) . 
-        "&attribute_location=" . urlencode($location) . 
-        "&attribute_programme-type=" . urlencode($programme_type);
+        (!empty($date) ? "&attribute_dates=" . urlencode($date) : "") . 
+        (!empty($time) ? "&attribute_time=" . urlencode($time) : "") . 
+        (!empty($location) ? "&attribute_location=" . urlencode($location) : "") . 
+        (!empty($programme_type) ? "&attribute_programme-type=" . urlencode($programme_type) : "");
 
         // Sort variations into categories
-        if ($programme_type === 'Virtual') {
+        if (strcasecmp($programme_type, 'Virtual') === 0) {
             $virtual_variants[] = compact('date', 'time', 'location', 'price', 'availability', 'add_to_cart_url');
-        } elseif ($programme_type === 'Face to Face') {
+        } elseif (strcasecmp($programme_type, 'Face to Face') === 0) {
             $face_to_face_variants[] = compact('date', 'time', 'location', 'price', 'availability', 'add_to_cart_url');
-        } elseif ($programme_type === 'In House' || $programme_type === 'In-House') { // Support both spellings
+        } elseif (in_array(strtolower($programme_type), ['in house', 'in-house'])) {
             $in_house_variants[] = compact('date', 'time', 'location', 'price', 'availability', 'add_to_cart_url');
         }
     }
@@ -730,15 +749,17 @@ if ($product && $product->is_type('variable')) {
                         <div class="row">
                             <?php if (!empty($virtual_variants)) { 
                                 foreach ($virtual_variants as $variant) { ?>
-                                    <div class="col-md-6">
-                                        <div class="variant-card">
-                                            <h3><?php echo $variant['date']; ?> - <?php echo $variant['time']; ?></h3>
-                                            <p><strong>Location:</strong> <?php echo $variant['location']; ?></p>
-                                            <p><strong>Price:</strong> <?php echo $variant['price']; ?></p>
-                                            <p><?php echo $variant['availability']; ?></p>
-                                            <a href="<?php echo esc_url($variant['add_to_cart_url']); ?>" class="siteCTA blue">Book Your Place</a>
-                                        </div>
-                                    </div>
+                            <div class="col-md-6">
+                                <div class="variant-card">
+                                    <h3><?php echo esc_html($variant['date']); ?> -
+                                        <?php echo esc_html($variant['time']); ?></h3>
+                                    <p><strong>Location:</strong> <?php echo esc_html($variant['location']); ?></p>
+                                    <p><strong>Price:</strong> <?php echo $variant['price']; ?></p>
+                                    <p><?php echo esc_html($variant['availability']); ?></p>
+                                    <a href="<?php echo esc_url($variant['add_to_cart_url']); ?>"
+                                        class="siteCTA blue">Book Your Place</a>
+                                </div>
+                            </div>
                             <?php } } else { echo "<p>No virtual training sessions available.</p>"; } ?>
                         </div>
                     </div>
@@ -748,15 +769,17 @@ if ($product && $product->is_type('variable')) {
                         <div class="row">
                             <?php if (!empty($face_to_face_variants)) { 
                                 foreach ($face_to_face_variants as $variant) { ?>
-                                    <div class="col-md-6">
-                                        <div class="variant-card">
-                                            <h3><?php echo $variant['date']; ?> - <?php echo $variant['time']; ?></h3>
-                                            <p><strong>Location:</strong> <?php echo $variant['location']; ?></p>
-                                            <p><strong>Price:</strong> <?php echo $variant['price']; ?></p>
-                                            <p><?php echo $variant['availability']; ?></p>
-                                            <a href="<?php echo esc_url($variant['add_to_cart_url']); ?>" class="siteCTA blue">Book Your Place</a>
-                                        </div>
-                                    </div>
+                            <div class="col-md-6">
+                                <div class="variant-card">
+                                    <h3><?php echo esc_html($variant['date']); ?> -
+                                        <?php echo esc_html($variant['time']); ?></h3>
+                                    <p><strong>Location:</strong> <?php echo esc_html($variant['location']); ?></p>
+                                    <p><strong>Price:</strong> <?php echo $variant['price']; ?></p>
+                                    <p><?php echo esc_html($variant['availability']); ?></p>
+                                    <a href="<?php echo esc_url($variant['add_to_cart_url']); ?>"
+                                        class="siteCTA blue">Book Your Place</a>
+                                </div>
+                            </div>
                             <?php } } else { echo "<p>No face-to-face training sessions available.</p>"; } ?>
                         </div>
                     </div>
@@ -766,15 +789,17 @@ if ($product && $product->is_type('variable')) {
                         <div class="row">
                             <?php if (!empty($in_house_variants)) { 
                                 foreach ($in_house_variants as $variant) { ?>
-                                    <div class="col-md-6">
-                                        <div class="variant-card">
-                                            <h3><?php echo $variant['date']; ?> - <?php echo $variant['time']; ?></h3>
-                                            <p><strong>Location:</strong> <?php echo $variant['location']; ?></p>
-                                            <p><strong>Price:</strong> <?php echo $variant['price']; ?></p>
-                                            <p><?php echo $variant['availability']; ?></p>
-                                            <a href="<?php echo esc_url($variant['add_to_cart_url']); ?>" class="siteCTA blue">Book Your Place</a>
-                                        </div>
-                                    </div>
+                            <div class="col-md-6">
+                                <div class="variant-card">
+                                    <h3><?php echo esc_html($variant['date']); ?> -
+                                        <?php echo esc_html($variant['time']); ?></h3>
+                                    <p><strong>Location:</strong> <?php echo esc_html($variant['location']); ?></p>
+                                    <p><strong>Price:</strong> <?php echo $variant['price']; ?></p>
+                                    <p><?php echo esc_html($variant['availability']); ?></p>
+                                    <a href="<?php echo esc_url($variant['add_to_cart_url']); ?>"
+                                        class="siteCTA blue">Book Your Place</a>
+                                </div>
+                            </div>
                             <?php } } else { echo "<p>No in-house training sessions available.</p>"; } ?>
                         </div>
                     </div>
@@ -782,36 +807,34 @@ if ($product && $product->is_type('variable')) {
             </div>
         </div>
     </div>
+    <style>
+    .variant-card {
+        min-height: 270px;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        background: #fff;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .variant-card h3 {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .variant-card p {
+        margin: 5px 0;
+    }
+
+    .variant-card .siteCTA {
+        display: block;
+        width: fit-content;
+        margin: 0 auto;
+        margin-top: 1rem;
+    }
+    </style>
 </section>
-
-<style>
-.variant-card {
-    min-height: 270px;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    background: #fff;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.variant-card h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-.variant-card p {
-    margin: 5px 0;
-}
-
-.variant-card .siteCTA{
-    display: block;
-    width: fit-content;
-    margin: 0 auto;
-    margin-top: 1rem;
-}
-
-</style>
 
 <?php } else { ?>
 <p>No available training sessions.</p>
@@ -841,7 +864,7 @@ if ($product && $product->is_type('variable')) {
 
 <?php elseif (get_row_layout() == 'related_products'): ?>
 <!-- Start WooCommerce Related Products Section -->
-<section class="home-courses related-products-section grey-bg">
+<div id="product-content" class="home-courses related-products-section grey-bg">
     <div class="container">
         <div class="text-wrapper">
             <p class="blue-underline text-uppercase"><?php the_sub_field('sub_heading'); ?></p>
@@ -869,9 +892,9 @@ if ($product && $product->is_type('variable')) {
                             <img src="<?php echo esc_url( $product_image ); ?>" alt="Card Header" class="img-fluid">
                         </div>
                         <div class="content ">
-                            <p class="course-class"><?php echo esc_html( $related_product->get_type() ); ?></p>
+                            <!-- <p class="course-class"><?php echo esc_html( $related_product->get_type() ); ?></p> -->
                             <h4><?php echo esc_html( $product_title ); ?></h4>
-                                <p><?php echo wp_strip_all_tags(get_the_excerpt()); ?></p>
+                            <p><?php echo wp_strip_all_tags(get_the_excerpt()); ?></p>
                             <div class="meta">
                                 <p class="price"><?php echo wp_kses_post( $product_price ); ?></p>
                             </div>
@@ -883,14 +906,14 @@ if ($product && $product->is_type('variable')) {
                 <?php
                     $shop_link = the_sub_field('view_more_courses_url'); 
                     ?>
-                <div class="text-center mt-5">
+                <div class="text-center py-5">
                     <a href="<?php echo esc_url( $shop_link ); ?>" class="siteCTA blue">View More Courses</a>
                 </div>
             </div>
             <?php endif; ?>
         </div>
     </div>
-</section>
+</div>
 <!-- End WooCommerce Related Products Section -->
 
 <?php endif; ?>

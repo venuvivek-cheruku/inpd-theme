@@ -1910,7 +1910,7 @@
                                                 <?=do_shortcode('[product_loop category="director-training"]');?>
                                             </div>
                                             <div class="text-center mt-5">
-                                                <a href="/courses" class="siteCTA blue">All courses</a>
+                                                <a href="/our-courses" class="siteCTA blue">All courses</a>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="leadership" role="tabpanel" aria-labelledby="leadership-tab">
@@ -1918,7 +1918,7 @@
                                                 <?=do_shortcode('[product_loop category="leadership"]');?>
                                             </div>
                                             <div class="text-center mt-5">
-                                                <a href="/courses" class="siteCTA blue">All courses</a>
+                                                <a href="/our-courses" class="siteCTA blue">All courses</a>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="sales-leadership" role="tabpanel" aria-labelledby="sales-leadership-tab">
@@ -1926,7 +1926,7 @@
                                                 <?=do_shortcode('[product_loop category="sales-leadership"]');?>
                                             </div>
                                             <div class="text-center mt-5">
-                                                <a href="/courses" class="siteCTA blue">All courses</a>
+                                                <a href="/our-courses" class="siteCTA blue">All courses</a>
                                             </div>
                                         </div>
                                         <div class="tab-pane fade" id="management" role="tabpanel" aria-labelledby="management-tab">
@@ -1934,7 +1934,7 @@
                                                 <?=do_shortcode('[product_loop category="management"]');?>
                                             </div>
                                             <div class="text-center mt-5">
-                                                <a href="/courses" class="siteCTA blue">All courses</a>
+                                                <a href="/our-courses" class="siteCTA blue">All courses</a>
                                             </div>
                                         </div>
                                     </div>

@@ -138,55 +138,58 @@ function qualifications_tab_content() {
 }
 
 // Callback for Learning Outcomes tab
+// Callback for Learning Outcomes tab
 function learning_outcomes_tab_content() {
     $learning_outcomes = get_field('learning_outcomes');
-    $learning_outcomes_image = get_field('learning_outcomes_image'); ?>
+    $learning_outcomes_image = get_field('learning_outcomes_image'); 
+
+    // Add a conditional class if no image is present
+    $content_class = $learning_outcomes_image ? 'product-description-content' : 'product-description-content full-width';
+?>
 
 <div class="product-description-wrapper">
+    <div class="<?php echo esc_attr($content_class); ?>">
+        <?php if ($learning_outcomes) {
+            echo '<p>' . wp_kses_post($learning_outcomes) . '</p>';
+        } ?>
+    </div>
 
-    <div class="product-description-content">
-        <?php   if ($learning_outcomes) {
-        echo '<p>' . wp_kses_post($learning_outcomes) . '</p>';
-        }
-    ?>
-    </div>
+    <?php if ($learning_outcomes_image) : ?>
     <div class="product-featured-image">
-        <?php 
-        if ($learning_outcomes_image) {
-        echo '<img src="' . esc_url($learning_outcomes_image['url']) . '"
-            alt="' . esc_attr($learning_outcomes_image['alt']) . '" />';
-        }
-        ?>
+        <img src="<?php echo esc_url($learning_outcomes_image['url']); ?>"
+            alt="<?php echo esc_attr($learning_outcomes_image['alt']); ?>" />
     </div>
+    <?php endif; ?>
 </div>
+
 <?php
 }
 
 
 function agenda_tab_content() {
     $agenda = get_field('agenda');
-    $agenda_image = get_field('agenda_image'); ?>
+    $agenda_image = get_field('agenda_image'); 
+
+    // Add a conditional class if no image is present
+    $content_class = $agenda_image ? 'product-description-content' : 'product-description-content full-width';
+?>
 
 <div class="product-description-wrapper">
+    <div class="<?php echo esc_attr($content_class); ?>">
+        <?php if ($agenda) {
+            echo '<p>' . wp_kses_post($agenda) . '</p>';
+        } ?>
+    </div>
 
-    <div class="product-description-content">
-        <?php   if ($agenda) {
-        echo '<p>' . wp_kses_post($agenda) . '</p>';
-        }
-    ?>
-    </div>
+    <?php if ($agenda_image) : ?>
     <div class="product-featured-image">
-        <?php 
-        if ($agenda_image) {
-        echo '<img src="' . esc_url($agenda_image['url']) . '"
-            alt="' . esc_attr($agenda_image['alt']) . '" />';
-        }
-        ?>
+        <img src="<?php echo esc_url($agenda_image['url']); ?>" alt="<?php echo esc_attr($agenda_image['alt']); ?>" />
     </div>
+    <?php endif; ?>
 </div>
+
 <?php
 }
-
 
 
 add_action('add_meta_boxes', function () {
@@ -315,3 +318,19 @@ function custom_product_loop_shortcode($atts) {
 
 // Register the shortcode
 add_shortcode('product_loop', 'custom_product_loop_shortcode');
+
+
+// Define logout button
+function add_logout_to_mobile_menu($items, $args) {
+    if ($args->theme_location == 'main_header_menu_nav' && is_user_logged_in()) {
+        $logout_item = '<li class="menu-item nav-item mobile-logout">
+            <a class="nav-link siteCTA blue" href="' . wp_logout_url(home_url()) . '">
+                Logout
+            </a>
+        </li>';
+
+        $items .= $logout_item; 
+    }
+    return $items;
+}
+add_filter('wp_nav_menu_items', 'add_logout_to_mobile_menu', 10, 2);

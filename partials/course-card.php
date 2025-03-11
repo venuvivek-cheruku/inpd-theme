@@ -1,9 +1,11 @@
 <div class="single-course">
     <div class="top">
         <?php if( get_the_post_thumbnail_url(get_the_ID(), 'large') ) : ?>
-            <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'large')); ?>" alt="Card Header" class="img-fluid">
+        <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'large')); ?>" alt="Card Header"
+            class="img-fluid">
         <?php else : ?>
-            <img src="/wp-content/uploads/2025/01/ddp-finance-for-non-finance-directors.jpg" alt="Card Header" class="img-fluid">
+        <img src="/wp-content/uploads/2025/01/ddp-finance-for-non-finance-directors.jpg" alt="Card Header"
+            class="img-fluid">
         <?php endif; ?>
     </div>
     <div class="content ">
@@ -20,11 +22,11 @@
                 endwhile;
             ?>
             <?php if( wc_get_product(get_the_ID())->get_price_html() ) : ?>
-                <p class="price"><?php echo wp_kses_post(wc_get_product(get_the_ID())->get_price_html()); ?></p>
+            <p class="price"><?php echo wp_kses_post(wc_get_product(get_the_ID())->get_price_html()); ?></p>
             <?php endif; if( $dm ) : ?>
-                <p class="duration"><?=$dm;?></p>
+            <p class="duration"><?=$dm;?></p>
             <?php endif; if( $loc ) : ?>
-                <p class="location"><?=$loc;?></p>
+            <p class="location"><?=$loc;?></p>
             <?php endif; ?>
         </div>
         <a href="<?=get_the_permalink( get_the_ID() ); ?>" class="siteCTA">Visit Course</a>

@@ -162,7 +162,9 @@
                     'fallback_cb' => 'WP_Bootstrap_Navwalker::fallback',
                     'walker' => new WP_Bootstrap_Navwalker(),
                 ));
+                
             ?>
+
         </div>
     </nav>
 </header>

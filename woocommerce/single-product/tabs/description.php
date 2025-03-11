@@ -23,12 +23,14 @@ $featured_image_url = get_the_post_thumbnail_url( $post->ID, 'full' );
 .product-description-wrapper {
     display: flex;
     flex-wrap: wrap;
-    gap: 20px;
+    gap: 50px;
+    justify-content: space-between;
     margin-top: 20px;
 }
 
 .product-description-content {
-    flex: 1 1 50%;
+    flex: 1 1 40%;
+    max-width: 50%;
     min-width: 200px;
 }
 

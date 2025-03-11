@@ -23,13 +23,158 @@ if ( ! defined( 'ABSPATH' ) ) {
 
  ?>
 
+<style>
+.course-actions-landing {
+    margin-top: 1rem;
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.product-title-with-icon--item {
+    width: 200px;
+    align-items: center;
+}
+
+section.imgleft-contr.woo-product-container {
+    padding: 30px 0;
+}
+
+
+@media (min-width: 994px) {
+    section.imgleft-contr .float-img.woo-product-image {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 40%;
+        min-height: 600px;
+    }
+}
+
+@media screen and (max-width: 550px) {
+    .product-title-with-icon--item {
+        width: calc(100%/ 2 - 1rem);
+    }
+}
+</style>
+
 <section class="woo-single-container">
-    <div class="container">
-        <?php while ( have_posts() ) : ?>
-        <?php the_post(); ?>
-        <?php wc_get_template_part( 'content', 'single-product' ); ?>
-        <?php endwhile; // end of the loop. ?>
-        <?php
+    <section class="imgleft-contr woo-product-container white-bg position-relative">
+        <div class="float-img woo-product-image">
+            <?php 
+            // Get the product object
+            global $product;
+            $product_id = get_the_ID();
+            $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $product_id ), 'full' ); 
+        ?>
+            <?php if ($product_image) : ?>
+            <img src="<?php echo esc_url($product_image[0]); ?>" alt="<?php the_title(); ?>" class="img-fluid">
+            <?php endif; ?>
+        </div>
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-7 offset-lg-5">
+                    <div class="text-wrapper">
+                        <h2><?php the_title(); ?></h2>
+                        <?php echo apply_filters('woocommerce_short_description', $post->post_excerpt); ?>
+                    </div>
+                    <!-- Custom Section for Course Info -->
+                    <div class="course-info">
+                        <div class="course-details">
+                            <!-- Duration -->
+                            <div class="course-item">
+                                <span class="icon-clock">
+                                    <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                    <svg fill="#102E43" width="30px" height="30px" viewBox="0 0 24 24"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm5,11H12a1,1,0,0,1-1-1V6a1,1,0,0,1,2,0v5h4a1,1,0,0,1,0,2Z" />
+                                    </svg>
+                                </span>
+                                <h4>Duration:</h4>
+                                <p><?php echo esc_html( get_field('duration_delivery_method') ); ?></p>
+                            </div>
+
+                            <!-- Location -->
+                            <div class="course-item">
+                                <span class="icon-location">
+                                    <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                    <svg width="30px" height="30px" viewBox="0 0 16 16" fill="none"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd" clip-rule="evenodd"
+                                            d="M3.37892 10.2236L8 16L12.6211 10.2236C13.5137 9.10788 14 7.72154 14 6.29266V6C14 2.68629 11.3137 0 8 0C4.68629 0 2 2.68629 2 6V6.29266C2 7.72154 2.4863 9.10788 3.37892 10.2236ZM8 8C9.10457 8 10 7.10457 10 6C10 4.89543 9.10457 4 8 4C6.89543 4 6 4.89543 6 6C6 7.10457 6.89543 8 8 8Z"
+                                            fill="#102E43" />
+                                    </svg>
+                                </span>
+                                <h4>Location:</h4>
+                                <p><?php echo esc_html( get_field('location') ); ?></p>
+                            </div>
+
+                            <!-- Qualification -->
+                            <div class="course-item">
+                                <span class="icon-graduation-cap">
+                                    <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                    <svg fill="#102E43" height="30px" width="30px" version="1.1" id="Layer_1"
+                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
+                                        viewBox="0 0 490 490" xml:space="preserve">
+                                        <g>
+                                            <g>
+                                                <g>
+                                                    <path d="M480,15.871H10c-5.523,0-10,4.477-10,10v410c0,5.523,4.477,10,10,10h260V299.577c-3.229-8.972-5-18.635-5-28.706
+				c0-46.869,38.131-85,85-85c46.869,0,85,38.131,85,85c0,10.071-1.771,19.733-5,28.706v146.294h50c5.523,0,10-4.477,10-10v-410
+				C490,20.349,485.523,15.871,480,15.871z M45,175.871h40v20H45V175.871z M175,395.871H45v-20h130V395.871z M235,345.871H45v-20
+				h190V345.871z M235,295.871H45v-20h190V295.871z M235,245.871H45v-20h190V245.871z M285,135.871h-80v-20h80V135.871z M335,95.871
+				H155v-20h180V95.871z" />
+                                                    <path d="M290,331.02v143.109l50-42.857v-55.4h20v55.4l50,42.857V331.02c-15.385,15.348-36.603,24.852-60,24.852
+				C326.603,355.872,305.385,346.368,290,331.02z" />
+                                                    <path
+                                                        d="M350,205.871c-35.841,0-65,29.159-65,65s29.159,65,65,65s65-29.159,65-65S385.841,205.871,350,205.871z" />
+                                                </g>
+                                            </g>
+                                        </g>
+                                    </svg>
+                                </span>
+                                <h4>Qualification:</h4>
+                                <p><?php echo esc_html( get_field('qualification') ); ?></p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <a class="right-for-you-text" href="#is-course-right-for-you"> Is this course right for you? </a>
+
+                    <div class="course-actions-landing">
+                        <a id="courseVariantsOpenModal" class="siteCTA blue">Book your place</a>
+                        <a href="#speakToTeam" class="siteCTA blue-border">Ask a question</a>
+                    </div>
+
+                    <!-- Course Variants Modal -->
+                    <div class="course-variants-modal" id="courseModal">
+                        <div class="modal-content">
+                            <span id="courseVariantsCloseModal" class="close-modal">Close <span>&times;</span></span>
+                            <div class="container">
+                                <?php echo do_shortcode('[pvtfw_table_display]') ?>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <?php while ( have_posts() ) : ?>
+    <?php the_post(); ?>
+    <?php 
+                    // Remove product thumbnail, title, and short description from the default WooCommerce template
+                    remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
+                    remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
+                    remove_action( 'woocommerce_before_single_product_summary', 'woocommerce_show_product_images', 20 );
+                    
+                    // Load the single product content
+                    wc_get_template_part( 'content', 'single-product' ); 
+                ?>
+    <?php endwhile; ?>
+    <?php
                 /**
                  * woocommerce_after_main_content hook.
                  *
@@ -37,7 +182,6 @@ if ( ! defined( 'ABSPATH' ) ) {
                  */
                 do_action( 'woocommerce_after_main_content' );
         ?>
-    </div>
 </section>
 
 <?php if (have_rows('course_additional_information')): // Flexible Content Field ?>
@@ -541,7 +685,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         </div>
     </div>
 </section>
-<?php elseif (get_row_layout() == 'upcoming_courses_section'): ?>
+<?php elseif (get_row_layout() == 'upcoming_courses_section' && $product && $product->is_type('variable')): ?>
 <?php
 // Dynamically get the current product ID
 $product_id = get_the_ID();
@@ -558,33 +702,35 @@ if ($product && $product->is_type('variable')) {
 
     foreach ($variations as $variation) {
         $variation_id = $variation['variation_id'];
-        $date = $variation['attributes']['attribute_dates'];
-        $time = $variation['attributes']['attribute_time'];
-        $location = $variation['attributes']['attribute_location'];
-        $programme_type = $variation['attributes']['attribute_programme-type']; // Corrected slug
 
-        $price = wc_price($variation['display_price']);
-        $stock = $variation['max_qty'];
+        // Handle undefined keys by setting defaults
+        $date = $variation['attributes']['attribute_dates'] ?? 'N/A';
+        $time = $variation['attributes']['attribute_time'] ?? 'N/A';
+        $location = $variation['attributes']['attribute_location'] ?? 'Online';
+        $programme_type = $variation['attributes']['attribute_programme-type'] ?? 'Other';
+
+        $price = wc_price($variation['display_price'] ?? 0);
+        $stock = $variation['max_qty'] ?? 0;
         $availability = ($stock > 0) ? "Available: $stock space(s) remaining" : "Fully booked";
 
-        // Generate unique Add to Cart URL for each variant
+        // Generate unique Add to Cart URL safely
         $add_to_cart_url = wc_get_cart_url() . "?add-to-cart=" . $product_id . "&variation_id=" . $variation_id . 
-        "&attribute_dates=" . urlencode($date) . 
-        "&attribute_time=" . urlencode($time) . 
-        "&attribute_location=" . urlencode($location) . 
-        "&attribute_programme-type=" . urlencode($programme_type);
+        (!empty($date) ? "&attribute_dates=" . urlencode($date) : "") . 
+        (!empty($time) ? "&attribute_time=" . urlencode($time) : "") . 
+        (!empty($location) ? "&attribute_location=" . urlencode($location) : "") . 
+        (!empty($programme_type) ? "&attribute_programme-type=" . urlencode($programme_type) : "");
 
         // Sort variations into categories
-        if ($programme_type === 'Virtual') {
+        if (strcasecmp($programme_type, 'Virtual') === 0) {
             $virtual_variants[] = compact('date', 'time', 'location', 'price', 'availability', 'add_to_cart_url');
-        } elseif ($programme_type === 'Face to Face') {
+        } elseif (strcasecmp($programme_type, 'Face to Face') === 0) {
             $face_to_face_variants[] = compact('date', 'time', 'location', 'price', 'availability', 'add_to_cart_url');
-        } elseif ($programme_type === 'In House' || $programme_type === 'In-House') { // Support both spellings
+        } elseif (in_array(strtolower($programme_type), ['in house', 'in-house'])) {
             $in_house_variants[] = compact('date', 'time', 'location', 'price', 'availability', 'add_to_cart_url');
         }
     }
 ?>
-
+<?php if (!empty($virtual_variants) || !empty($face_to_face_variants) || !empty($in_house_variants)) : ?>
 <section class="product-centered-tabs centered-tabs white-bg">
     <div class="container">
         <div class="row">
@@ -620,10 +766,11 @@ if ($product && $product->is_type('variable')) {
                                 foreach ($virtual_variants as $variant) { ?>
                             <div class="col-md-6">
                                 <div class="variant-card">
-                                    <h3><?php echo $variant['date']; ?> - <?php echo $variant['time']; ?></h3>
-                                    <p><strong>Location:</strong> <?php echo $variant['location']; ?></p>
+                                    <h3><?php echo esc_html($variant['date']); ?> -
+                                        <?php echo esc_html($variant['time']); ?></h3>
+                                    <p><strong>Location:</strong> <?php echo esc_html($variant['location']); ?></p>
                                     <p><strong>Price:</strong> <?php echo $variant['price']; ?></p>
-                                    <p><?php echo $variant['availability']; ?></p>
+                                    <p><?php echo esc_html($variant['availability']); ?></p>
                                     <a href="<?php echo esc_url($variant['add_to_cart_url']); ?>"
                                         class="siteCTA blue">Book Your Place</a>
                                 </div>
@@ -639,10 +786,11 @@ if ($product && $product->is_type('variable')) {
                                 foreach ($face_to_face_variants as $variant) { ?>
                             <div class="col-md-6">
                                 <div class="variant-card">
-                                    <h3><?php echo $variant['date']; ?> - <?php echo $variant['time']; ?></h3>
-                                    <p><strong>Location:</strong> <?php echo $variant['location']; ?></p>
+                                    <h3><?php echo esc_html($variant['date']); ?> -
+                                        <?php echo esc_html($variant['time']); ?></h3>
+                                    <p><strong>Location:</strong> <?php echo esc_html($variant['location']); ?></p>
                                     <p><strong>Price:</strong> <?php echo $variant['price']; ?></p>
-                                    <p><?php echo $variant['availability']; ?></p>
+                                    <p><?php echo esc_html($variant['availability']); ?></p>
                                     <a href="<?php echo esc_url($variant['add_to_cart_url']); ?>"
                                         class="siteCTA blue">Book Your Place</a>
                                 </div>
@@ -658,10 +806,11 @@ if ($product && $product->is_type('variable')) {
                                 foreach ($in_house_variants as $variant) { ?>
                             <div class="col-md-6">
                                 <div class="variant-card">
-                                    <h3><?php echo $variant['date']; ?> - <?php echo $variant['time']; ?></h3>
-                                    <p><strong>Location:</strong> <?php echo $variant['location']; ?></p>
+                                    <h3><?php echo esc_html($variant['date']); ?> -
+                                        <?php echo esc_html($variant['time']); ?></h3>
+                                    <p><strong>Location:</strong> <?php echo esc_html($variant['location']); ?></p>
                                     <p><strong>Price:</strong> <?php echo $variant['price']; ?></p>
-                                    <p><?php echo $variant['availability']; ?></p>
+                                    <p><?php echo esc_html($variant['availability']); ?></p>
                                     <a href="<?php echo esc_url($variant['add_to_cart_url']); ?>"
                                         class="siteCTA blue">Book Your Place</a>
                                 </div>
@@ -673,39 +822,39 @@ if ($product && $product->is_type('variable')) {
             </div>
         </div>
     </div>
+    <style>
+    .variant-card {
+        min-height: 270px;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        background: #fff;
+        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .variant-card h3 {
+        font-size: 18px;
+        margin-bottom: 5px;
+    }
+
+    .variant-card p {
+        margin: 5px 0;
+    }
+
+    .variant-card .siteCTA {
+        display: block;
+        width: fit-content;
+        margin: 0 auto;
+        margin-top: 1rem;
+    }
+    </style>
 </section>
-
-<style>
-.variant-card {
-    min-height: 270px;
-    border: 1px solid #ddd;
-    padding: 20px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    background: #fff;
-    box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-}
-
-.variant-card h3 {
-    font-size: 18px;
-    margin-bottom: 5px;
-}
-
-.variant-card p {
-    margin: 5px 0;
-}
-
-.variant-card .siteCTA {
-    display: block;
-    width: fit-content;
-    margin: 0 auto;
-    margin-top: 1rem;
-}
-</style>
-
+<?php endif; ?>
 <?php } else { ?>
 <p>No available training sessions.</p>
 <?php } ?>
+
 
 <?php elseif (get_row_layout() == 'contact_section'): ?>
 <section id="speakToTeam" class="speak-to-team dark-blue-bg">
@@ -741,7 +890,7 @@ if ($product && $product->is_type('variable')) {
 
 <?php elseif (get_row_layout() == 'related_products'): ?>
 <!-- Start WooCommerce Related Products Section -->
-<section class="home-courses related-products-section grey-bg">
+<div id="product-content" class="home-courses related-products-section grey-bg">
     <div class="container">
         <div class="text-wrapper">
             <p class="blue-underline text-uppercase"><?php the_sub_field('sub_heading'); ?></p>
@@ -769,9 +918,9 @@ if ($product && $product->is_type('variable')) {
                             <img src="<?php echo esc_url( $product_image ); ?>" alt="Card Header" class="img-fluid">
                         </div>
                         <div class="content ">
-                            <p class="course-class"><?php echo esc_html( $related_product->get_type() ); ?></p>
+                            <!-- <p class="course-class"><?php echo esc_html( $related_product->get_type() ); ?></p> -->
                             <h4><?php echo esc_html( $product_title ); ?></h4>
-                                <p><?php echo wp_strip_all_tags(get_the_excerpt()); ?></p>
+                            <p><?php echo wp_strip_all_tags(get_the_excerpt()); ?></p>
                             <div class="meta">
                                 <p class="price"><?php echo wp_kses_post( $product_price ); ?></p>
                             </div>
@@ -783,14 +932,14 @@ if ($product && $product->is_type('variable')) {
                 <?php
                     $shop_link = the_sub_field('view_more_courses_url'); 
                     ?>
-                <div class="text-center mt-5">
+                <div class="text-center py-5">
                     <a href="<?php echo esc_url( $shop_link ); ?>" class="siteCTA blue">View More Courses</a>
                 </div>
             </div>
             <?php endif; ?>
         </div>
     </div>
-</section>
+</div>
 <!-- End WooCommerce Related Products Section -->
 
 <?php endif; ?>

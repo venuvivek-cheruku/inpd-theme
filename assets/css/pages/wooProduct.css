@@ -21,7 +21,8 @@
 
 .product-testimonial .single-test h2:before {
   content: "";
-  background: url(/wp-content/uploads/2024/07/blue-open.svg) no-repeat center center/contain;
+  background: url(/wp-content/uploads/2025/03/blue-open.svg) no-repeat center
+    center/contain;
   width: 30px;
   height: 26px;
   position: absolute;
@@ -31,7 +32,8 @@
 
 .product-testimonial .single-test h2:after {
   content: "";
-  background: url(/wp-content/uploads/2024/07/closing-blue.svg) no-repeat center center/contain;
+  background: url(/wp-content/uploads/2025/03/closing-blue.svg) no-repeat center
+    center/contain;
   width: 30px;
   height: 26px;
   position: absolute;
