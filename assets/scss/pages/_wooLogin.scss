@@ -116,10 +116,10 @@ section.woo-login-container {
 
 section.woo-single-container {
   position: relative;
-  padding: 70px 0;
+  // padding: 70px 0;
   padding-top: 200px;
-  @media screen and (max-width: 768px) {
-    padding-top: 120px;
+  @media screen and (max-width: 992px) {
+    padding-top: 60px;
   }
 
   .right-for-you-text {
@@ -236,57 +236,59 @@ section.woo-single-container {
   }
 }
 
-
 .woocommerce-MyAccount-content {
   a {
-      color: #102e43;
+    color: #102e43;
   }
   .woocommerce-info {
-      border-color: #102e43;
+    border-color: #102e43;
   }
-  .woocommerce-Button, .button {
-      background: #102e43 !important;
-      color: #fff !important;
-      border: 1px solid #102e43;
-      border-radius: 0 !important;
+  .woocommerce-Button,
+  .button {
+    background: #102e43 !important;
+    color: #fff !important;
+    border: 1px solid #102e43;
+    border-radius: 0 !important;
   }
   .woocommerce-info::before {
-      color: #102e43;
+    color: #102e43;
   }
   header {
-      position: relative;
+    position: relative;
+    text-align: left;
+    margin-bottom: 30px;
+    h3,
+    a {
+      float: none;
+      width: 100%;
       text-align: left;
-      margin-bottom: 30px;
-      h3, a {
-          float: none;
-          width: 100%;
-          text-align: left;
-      }
+    }
   }
 }
 .woocommerce-MyAccount-navigation {
   ul {
-      margin: 0;
-      padding: 0;
-      list-style-type: none;
-      li {
-          padding: 10px 20px;
-          border: 1px solid #102e43;
-          transition: all 333ms ease;
-          cursor: pointer;
-          &:not(:last-child) {
-              margin-bottom: 10px;
-          }
-          a {
-              text-decoration: none;
-              color: #102e43;
-          }
-          &.is-active, &:hover {
-              background: #102e43;
-              a {
-                  color: #fff;
-              }
-          }
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    li {
+      padding: 10px 20px;
+      border: 1px solid #102e43;
+      transition: all 333ms ease;
+      cursor: pointer;
+      &:not(:last-child) {
+        margin-bottom: 10px;
       }
+      a {
+        text-decoration: none;
+        color: #102e43;
+      }
+      &.is-active,
+      &:hover {
+        background: #102e43;
+        a {
+          color: #fff;
+        }
+      }
+    }
   }
 }

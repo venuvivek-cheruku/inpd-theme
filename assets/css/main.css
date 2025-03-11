@@ -929,12 +929,12 @@ section.woo-login-container .lost_password.inpd a {
 
 section.woo-single-container {
   position: relative;
-  padding: 70px 0;
+  /* padding: 70px 0; */
   padding-top: 200px;
 }
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 992px) {
   section.woo-single-container {
-    padding-top: 120px;
+    padding-top: 60px;
   }
 }
 section.woo-single-container .right-for-you-text {

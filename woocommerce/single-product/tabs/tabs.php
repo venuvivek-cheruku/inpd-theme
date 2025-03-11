@@ -72,6 +72,16 @@ section.tabs-container {
     padding: 80px 0;
 }
 
+.product-description-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.product-description-content.full-width {
+    width: 100%;
+    max-width: 100%;
+}
+
 @media screen and (max-width: 550px) {
     .woocommerce div.product .woocommerce-tabs ul.tabs li {
         padding: 0rem 1rem;
