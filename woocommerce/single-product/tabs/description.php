@@ -44,6 +44,24 @@ $featured_image_url = get_the_post_thumbnail_url( $post->ID, 'full' );
     height: auto;
     display: block;
 }
+
+@media screen and (max-width: 728px) {
+    .product-description-wrapper {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-description-content {
+        flex: 1;
+        max-width: 100%;
+        min-width: 200px;
+    }
+
+    .product-featured-image {
+        flex: 11;
+        max-width: 100%;
+    }
+}
 </style>
 
 <div class="product-description-wrapper">

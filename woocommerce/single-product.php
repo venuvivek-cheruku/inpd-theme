@@ -59,112 +59,126 @@ section.imgleft-contr.woo-product-container {
     }
 }
 </style>
-
-<section class="woo-single-container">
-    <section class="imgleft-contr woo-product-container white-bg position-relative">
-        <div class="float-img woo-product-image">
-            <?php 
+<main>
+    <section class="woo-single-container">
+        <section class="imgleft-contr woo-product-container white-bg position-relative">
+            <div class="float-img woo-product-image">
+                <?php 
             // Get the product object
             global $product;
             $product_id = get_the_ID();
             $product_image = wp_get_attachment_image_src( get_post_thumbnail_id( $product_id ), 'full' ); 
         ?>
-            <?php if ($product_image) : ?>
-            <img src="<?php echo esc_url($product_image[0]); ?>" alt="<?php the_title(); ?>" class="img-fluid">
-            <?php endif; ?>
-        </div>
-        <div class="container">
-            <div class="row">
-                <div class="col-12 col-lg-7 offset-lg-5">
-                    <div class="text-wrapper">
-                        <h2><?php the_title(); ?></h2>
-                        <?php echo apply_filters('woocommerce_short_description', $post->post_excerpt); ?>
-                    </div>
-                    <!-- Custom Section for Course Info -->
-                    <div class="course-info">
-                        <div class="course-details">
-                            <!-- Duration -->
-                            <div class="course-item">
-                                <span class="icon-clock">
-                                    <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-                                    <svg fill="#102E43" width="30px" height="30px" viewBox="0 0 24 24"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm5,11H12a1,1,0,0,1-1-1V6a1,1,0,0,1,2,0v5h4a1,1,0,0,1,0,2Z" />
-                                    </svg>
-                                </span>
-                                <h4>Duration:</h4>
-                                <p><?php echo esc_html( get_field('duration_delivery_method') ); ?></p>
-                            </div>
-
-                            <!-- Location -->
-                            <div class="course-item">
-                                <span class="icon-location">
-                                    <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-                                    <svg width="30px" height="30px" viewBox="0 0 16 16" fill="none"
-                                        xmlns="http://www.w3.org/2000/svg">
-                                        <path fill-rule="evenodd" clip-rule="evenodd"
-                                            d="M3.37892 10.2236L8 16L12.6211 10.2236C13.5137 9.10788 14 7.72154 14 6.29266V6C14 2.68629 11.3137 0 8 0C4.68629 0 2 2.68629 2 6V6.29266C2 7.72154 2.4863 9.10788 3.37892 10.2236ZM8 8C9.10457 8 10 7.10457 10 6C10 4.89543 9.10457 4 8 4C6.89543 4 6 4.89543 6 6C6 7.10457 6.89543 8 8 8Z"
-                                            fill="#102E43" />
-                                    </svg>
-                                </span>
-                                <h4>Location:</h4>
-                                <p><?php echo esc_html( get_field('location') ); ?></p>
-                            </div>
-
-                            <!-- Qualification -->
-                            <div class="course-item">
-                                <span class="icon-graduation-cap">
-                                    <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
-                                    <svg fill="#102E43" height="30px" width="30px" version="1.1" id="Layer_1"
-                                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
-                                        viewBox="0 0 490 490" xml:space="preserve">
-                                        <g>
+                <?php if ($product_image) : ?>
+                <img src="<?php echo esc_url($product_image[0]); ?>" alt="<?php the_title(); ?>" class="img-fluid">
+                <?php endif; ?>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 col-lg-7 offset-lg-5">
+                        <div class="text-wrapper">
+                            <h2><?php the_title(); ?></h2>
+                            <?php echo apply_filters('woocommerce_short_description', $post->post_excerpt); ?>
+                        </div>
+                        <!-- Custom Section for Course Info -->
+                        <div class="course-info">
+                            <?php 
+                             while( have_rows('product_meta_fields') ) : the_row();
+                                $dm = get_sub_field('duration_delivery_method');
+                                $loc = get_sub_field('location');
+                                $quli = get_sub_field('qualification');
+                             endwhile;
+                            ?>
+                            <div class="course-details">
+                                <!-- Duration -->
+                                <?php if( $dm ) : ?>
+                                <div class="course-item">
+                                    <span class="icon-clock">
+                                        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                        <svg fill="#102E43" width="30px" height="30px" viewBox="0 0 24 24"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path
+                                                d="M12,2A10,10,0,1,0,22,12,10,10,0,0,0,12,2Zm5,11H12a1,1,0,0,1-1-1V6a1,1,0,0,1,2,0v5h4a1,1,0,0,1,0,2Z" />
+                                        </svg>
+                                    </span>
+                                    <h4>Duration:</h4>
+                                    <p><?=$dm;?></p>
+                                </div>
+                                <?php endif; ?>
+                                <!-- Location -->
+                                <?php if( $loc ) : ?>
+                                <div class="course-item">
+                                    <span class="icon-location">
+                                        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                        <svg width="30px" height="30px" viewBox="0 0 16 16" fill="none"
+                                            xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                                d="M3.37892 10.2236L8 16L12.6211 10.2236C13.5137 9.10788 14 7.72154 14 6.29266V6C14 2.68629 11.3137 0 8 0C4.68629 0 2 2.68629 2 6V6.29266C2 7.72154 2.4863 9.10788 3.37892 10.2236ZM8 8C9.10457 8 10 7.10457 10 6C10 4.89543 9.10457 4 8 4C6.89543 4 6 4.89543 6 6C6 7.10457 6.89543 8 8 8Z"
+                                                fill="#102E43" />
+                                        </svg>
+                                    </span>
+                                    <h4>Location:</h4>
+                                    <p><?=$loc;?></p>
+                                </div>
+                                <?php endif; ?>
+                                <?php if( $quli ) : ?>
+                                <!-- Qualification -->
+                                <div class="course-item">
+                                    <span class="icon-graduation-cap">
+                                        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+                                        <svg fill="#102E43" height="30px" width="30px" version="1.1" id="Layer_1"
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 490 490"
+                                            xml:space="preserve">
                                             <g>
                                                 <g>
-                                                    <path d="M480,15.871H10c-5.523,0-10,4.477-10,10v410c0,5.523,4.477,10,10,10h260V299.577c-3.229-8.972-5-18.635-5-28.706
+                                                    <g>
+                                                        <path d="M480,15.871H10c-5.523,0-10,4.477-10,10v410c0,5.523,4.477,10,10,10h260V299.577c-3.229-8.972-5-18.635-5-28.706
 				c0-46.869,38.131-85,85-85c46.869,0,85,38.131,85,85c0,10.071-1.771,19.733-5,28.706v146.294h50c5.523,0,10-4.477,10-10v-410
 				C490,20.349,485.523,15.871,480,15.871z M45,175.871h40v20H45V175.871z M175,395.871H45v-20h130V395.871z M235,345.871H45v-20
 				h190V345.871z M235,295.871H45v-20h190V295.871z M235,245.871H45v-20h190V245.871z M285,135.871h-80v-20h80V135.871z M335,95.871
 				H155v-20h180V95.871z" />
-                                                    <path d="M290,331.02v143.109l50-42.857v-55.4h20v55.4l50,42.857V331.02c-15.385,15.348-36.603,24.852-60,24.852
+                                                        <path d="M290,331.02v143.109l50-42.857v-55.4h20v55.4l50,42.857V331.02c-15.385,15.348-36.603,24.852-60,24.852
 				C326.603,355.872,305.385,346.368,290,331.02z" />
-                                                    <path
-                                                        d="M350,205.871c-35.841,0-65,29.159-65,65s29.159,65,65,65s65-29.159,65-65S385.841,205.871,350,205.871z" />
+                                                        <path
+                                                            d="M350,205.871c-35.841,0-65,29.159-65,65s29.159,65,65,65s65-29.159,65-65S385.841,205.871,350,205.871z" />
+                                                    </g>
                                                 </g>
                                             </g>
-                                        </g>
-                                    </svg>
-                                </span>
-                                <h4>Qualification:</h4>
-                                <p><?php echo esc_html( get_field('qualification') ); ?></p>
+                                        </svg>
+                                    </span>
+                                    <h4>Qualification:</h4>
+                                    <p><?=$quli;?></p>
+                                </div>
+                                <?php endif; ?>
                             </div>
                         </div>
-                    </div>
 
-                    <a class="right-for-you-text" href="#is-course-right-for-you"> Is this course right for you? </a>
+                        <a class="right-for-you-text" href="#is-course-right-for-you"> Is this course right for you?
+                        </a>
 
-                    <div class="course-actions-landing">
-                        <a id="courseVariantsOpenModal" class="siteCTA blue">Book your place</a>
-                        <a href="#speakToTeam" class="siteCTA blue-border">Ask a question</a>
-                    </div>
+                        <div class="course-actions-landing">
+                            <a id="courseVariantsOpenModal" class="siteCTA blue">Book your place</a>
+                            <a href="#speakToTeam" class="siteCTA blue-border">Ask a question</a>
+                        </div>
 
-                    <!-- Course Variants Modal -->
-                    <div class="course-variants-modal" id="courseModal">
-                        <div class="modal-content">
-                            <span id="courseVariantsCloseModal" class="close-modal">Close <span>&times;</span></span>
-                            <div class="container">
-                            <?php echo do_shortcode('[pvtfw_table_display id="' . esc_attr($product_id) . '"]'); ?>
+                        <!-- Course Variants Modal -->
+                        <div class="course-variants-modal" id="courseModal">
+                            <div class="modal-content">
+                                <span id="courseVariantsCloseModal" class="close-modal">Close
+                                    <span>&times;</span></span>
+                                <div class="container">
+                                    <?php echo do_shortcode('[pvtfw_table_display id="' . esc_attr($product_id) . '"]'); ?>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
-    <?php while ( have_posts() ) : ?>
-    <?php the_post(); ?>
-    <?php 
+        </section>
+        <?php while ( have_posts() ) : ?>
+        <?php the_post(); ?>
+        <?php 
                     // Remove product thumbnail, title, and short description from the default WooCommerce template
                     remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_title', 5 );
                     remove_action( 'woocommerce_single_product_summary', 'woocommerce_template_single_excerpt', 20 );
@@ -173,8 +187,8 @@ section.imgleft-contr.woo-product-container {
                     // Load the single product content
                     wc_get_template_part( 'content', 'single-product' ); 
                 ?>
-    <?php endwhile; ?>
-    <?php
+        <?php endwhile; ?>
+        <?php
                 /**
                  * woocommerce_after_main_content hook.
                  *
@@ -182,165 +196,260 @@ section.imgleft-contr.woo-product-container {
                  */
                 do_action( 'woocommerce_after_main_content' );
         ?>
-</section>
+    </section>
 
-<?php if (have_rows('course_additional_information')): // Flexible Content Field ?>
-<?php while (have_rows('course_additional_information')): the_row(); ?>
-<?php if (get_row_layout() == 'brochure_section'): ?>
-<section class="product-download-brochure dark-blue-bg">
-    <div class="container">
-        <div class="row align-items-center">
-            <div class="col-12 col-lg-7" style="padding-bottom: 4rem;">
-                <div class="text-wrapper">
-                    <p class="white-underline text-uppercase">Download our brochure</p>
-                    <h2><?php the_sub_field('brochure_heading'); ?></h2>
-                    <div class="course-actions-landing" style="margin-top: 20px;">
-                        <a style="margin-right: 20px;color: #102e43;" href="#"  class="siteCTA" target="_self">Speak to an Expert</a>
-                        <?php
+    <?php if (have_rows('course_additional_information')): // Flexible Content Field ?>
+    <?php while (have_rows('course_additional_information')): the_row(); ?>
+    <?php if (get_row_layout() == 'brochure_section'): ?>
+    <section class="product-download-brochure dark-blue-bg">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-12 col-lg-7" style="padding-bottom: 4rem;">
+                    <div class="text-wrapper">
+                        <p class="white-underline text-uppercase">Download our brochure</p>
+                        <h2><?php the_sub_field('brochure_heading'); ?></h2>
+                        <div class="course-actions-landing" style="margin-top: 20px;">
+                            <a style="margin-right: 20px;color: #102e43;" href="#speakToTeam" class="siteCTA"
+                                target="_self">Speak
+                                to an Expert</a>
+                            <?php
                                     $brochure = get_sub_field('brochure_link'); 
                                     if ($brochure):
                                         $brochure_url = is_array($brochure) ? $brochure['url'] : $brochure;
                                     ?>
-                        <a href="<?php echo esc_url($brochure_url); ?>" class="siteCTA outline download" target="_self">
-                            Download brochure
-                        </a>
-                        <?php endif; ?>
+                            <a href="<?php echo esc_url($brochure_url); ?>" class="siteCTA outline download"
+                                target="_self">
+                                Download brochure
+                            </a>
+                            <?php endif; ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-lg-5">
-                <div class="image-wrapper">
-                    <?php
+                <div class="col-12 col-lg-5">
+                    <div class="image-wrapper">
+                        <?php
                                 $brochure_image = get_sub_field('brochure_image');
                                 if ($brochure_image):
                                     $brochure_image_url = is_array($brochure_image) ? $brochure_image['url'] : $brochure_image;
                                     $brochure_image_alt = is_array($brochure_image) ? $brochure_image['alt'] : 'Brochure Image';
                                 ?>
-                    <img src="<?php echo esc_url($brochure_image_url); ?>"
-                        alt="<?php echo esc_attr($brochure_image_alt); ?>" />
-                    <?php else: ?>
-                    <img src="<?php echo get_template_directory_uri(); ?>/assets/images/image-coming-soon.jpg"
-                        alt="Default Brochure Image" />
-                    <?php endif; ?>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<?php elseif (get_row_layout() == 'course_video_section'): ?>
-<section class="product-video">
-    <div class="container">
-        <?php
-                    $video_placeholder = get_sub_field('course_thumbnail');
-                    $course_video = get_sub_field('course_video'); 
-                    ?>
-        <div class="float-vid">
-            <div class="video-img" data-aos="fade-right">
-                <img src="<?php echo esc_url($video_placeholder ? $video_placeholder : get_template_directory_uri() . '/assets/images/placeholder.jpg'); ?>"
-                    alt="Video Placeholder" class="img-fluid">
-                <?php if ($course_video): ?>
-                <div class="vid-btn">
-                    <a data-bs-toggle="modal" data-bs-target=".vid-modal">
-                        <img src="/wp-content/uploads/2024/07/play-btn-1.svg" alt="Play Button" class="img-fluid">
-                    </a>
-                </div>
-                <?php endif; ?>
-            </div>
-        </div>
-        <?php if ($course_video): ?>
-        <div class="modal fade vid-modal" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel"
-            aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="row">
-                        <div class="col-12 video-wrapper">
-                            <div class="close" data-bs-dismiss="modal">✕</div>
-                            <iframe src="<?php echo esc_url($course_video); ?>" frameborder="0"
-                                allowfullscreen=""></iframe>
-                        </div>
+                        <img src="<?php echo esc_url($brochure_image_url); ?>"
+                            alt="<?php echo esc_attr($brochure_image_alt); ?>" />
+                        <?php else: ?>
+                        <img src="<?php echo get_template_directory_uri(); ?>/assets/images/image-coming-soon.jpg"
+                            alt="Default Brochure Image" />
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
         </div>
-        <?php endif; ?>
-    </div>
-</section>
-
-<?php elseif( get_row_layout() == 'teacher_slider_section' ): ?>
-<section class="teacher-row">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-lg-8">
-                <div class="text-wrapper">
-                    <?php if( get_sub_field('sub_heading') ) : ?>
-                    <p class="blue-underline text-uppercase"><?=get_sub_field('sub_heading');?></p>
+    </section>
+    <?php elseif (get_row_layout() == 'course_video_section'): ?>
+    <section class="full-width-vid grey-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <?php if( get_sub_field('fwv_title') ) : ?>
+                    <div class="title-wrapper text-center">
+                        <h2 class="blue-underline center"><?=get_sub_field('fwv_title');?></h2>
+                    </div>
                     <?php endif; ?>
-                    <?=get_sub_field('heading');?>
-                </div>
-            </div>
-            <div class="col-12">
-                <div class="teach-slider">
-                    <?php if( have_rows('teachers') ) : while( have_rows('teachers') ) : the_row(); ?>
-                    <?php $teacher = get_sub_field('teacher_item'); if( $teacher ): ?>
-                    <div class="item">
-                        <div class="single-teacher"
-                            style="background: url('<?=get_the_post_thumbnail_url( $teacher->ID );?>') no-repeat center center / cover;">
-                            <div class="inner">
-                                <h5><?php echo esc_html( $teacher->post_title ); ?></h5>
-                                <p><?= get_field('job_title', $teacher->ID); ?></p>
+                    <div class="video-wrapper">
+                        <div class="video-img" data-aos="fade-right">
+                            <?php $vid_img = get_sub_field('fwv_vid_ph');?>
+                            <img src="<?=$vid_img['url'];?>" alt="<?=$vid_img['alt'];?>" class="img-fluid">
+                            <div class="vid-btn">
+                                <a data-bs-toggle="modal" data-bs-target=".vid-modal"><img
+                                        src="/wp-content/uploads/2024/07/play-btn-1.svg" alt="Play Button"
+                                        class="img-fluid"></a>
                             </div>
                         </div>
-                        <?php 
-                                                $teach_btn = get_sub_field('teacher_button');
-                                                echo '<div class="teacher-btn">';
-                                                if( $teach_btn ) {
-                                                    $btn_txt = $teach_btn['title'];
-                                                    $btn_url = $teach_btn['url'];
-                                                    $btn_trgt = $teach_btn['target'] ? $teach_btn['target'] : '_self';
-                                                    echo '<a href="'.$btn_url.'" class="siteCTA blue" target="'.$btn_trgt.'">'.$btn_txt.'</a>';
-                                                }
-                                                echo '</div>';
-                                            ?>
                     </div>
-                    <?php endif; ?>
-                    <?php endwhile; endif; ?>
+                    <div class="modal fade vid-modal" tabindex="-1" aria-labelledby="myLargeModalLabel">
+                        <div class="modal-dialog modal-lg modal-dialog-centered">
+                            <div class="modal-content">
+                                <div class="row">
+                                    <div class="col-12 video-wrapper">
+                                        <div class="close" data-bs-dismiss="modal">&#10005;</div>
+                                        <?php 
+                                            $video_url = get_sub_field('video_embed_url');
+                                            
+                                            if (preg_match('/youtu\.be\/([a-zA-Z0-9_-]+)/', $video_url, $matches) || 
+                                                preg_match('/youtube\.com\/watch\?v=([a-zA-Z0-9_-]+)/', $video_url, $matches)) {
+                                                
+                                                $youtube_id = $matches[1]; 
+
+                                                $embed_url = "https://www.youtube.com/embed/" . $youtube_id;
+                                            }
+                                        ?>
+                                        <!-- Use the Correct Embed URL -->
+                                        <iframe src="<?= $embed_url; ?>" frameborder="0" allowfullscreen></iframe>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var modal = document.querySelector(".vid-modal");
+            var iframe = modal.querySelector("iframe");
+            var playButton = document.querySelector(".vid-btn a");
+
+            if (modal && iframe && playButton) {
+                var videoSrc = iframe.src; // Store the original iframe src
+
+                // Function to set inert attribute
+                function setInert(isInert) {
+                    if (isInert) {
+                        modal.setAttribute("inert", ""); // Disable interactions
+                    } else {
+                        modal.removeAttribute("inert"); // Re-enable interactions
+                    }
+                }
+
+                // When modal is opened, enable it and start video autoplay
+                playButton.addEventListener("click", function() {
+                    setInert(false);
+                    iframe.src = videoSrc + "?autoplay=1"; // Add autoplay to URL
+                });
+
+                // When modal is closed, disable it and stop video
+                modal.addEventListener("hidden.bs.modal", function() {
+                    iframe.src = ""; // Stop video playback
+                    setTimeout(() => {
+                        iframe.src = videoSrc; // Reset iframe source
+                    }, 300);
+                    setInert(true); // Make modal inert
+                });
+            }
+        });
+        </script>
+    </section>
+
+    <?php elseif( get_row_layout() == 'teacher_slider_section' ): ?>
+    <section class="teacher-row" style="overflow: hidden;" <?php if( get_sub_field('remove_pt') ) : ?>pt-0
+        <?php endif; ?><?php if( get_sub_field('remove_pb') ) : ?>pb-0 <?php endif; ?>">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8">
+                    <div class="text-wrapper">
+                        <?php if( get_sub_field('ts_subtitle') ) : ?>
+                        <p class="blue-underline text-uppercase"><?=get_sub_field('ts_subtitle');?></p>
+                        <?php endif; ?>
+                        <?=get_sub_field('ts_intro');?>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="teach-slider">
+                        <?php $bios = get_sub_field('show_t_bios'); ?>
+                        <?php if( have_rows('teachers') ) : $tc = 1; while( have_rows('teachers') ) : the_row(); ?>
+                        <?php $teacher = get_sub_field('teacher_item'); if( $teacher ): ?>
+                        <div class="item">
+                            <div class="single-teacher"
+                                style="background: url('<?=get_the_post_thumbnail_url( $teacher->ID );?>') no-repeat center center / cover;">
+                                <div class="inner">
+                                    <h4 class="mb-0"><?php echo esc_html( $teacher->post_title ); ?></h4>
+                                    <p class="mb-2"><?= get_field('job_title', $teacher->ID); ?></p>
+                                    <?php if( $bios ) : ?>
+                                    <p class="bio" data-bs-toggle="modal" data-bs-target="#tmodal-<?=$tc;?>">
+                                        Read bio
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="33.199" height="15.304"
+                                            viewBox="0 0 33.199 15.304">
+                                            <g id="Icon_feather-arrow-left" data-name="Icon feather-arrow-left"
+                                                transform="translate(32.699 14.597) rotate(180)">
+                                                <path id="Path_7" data-name="Path 7" d="M32.2,0H0"
+                                                    transform="translate(0 6.945)" fill="none" stroke="#feffff"
+                                                    stroke-linecap="round" stroke-linejoin="round" stroke-width="1" />
+                                                <path id="Path_8" data-name="Path 8" d="M6.945,13.89,0,6.945,6.945,0"
+                                                    fill="none" stroke="#feffff" stroke-linecap="round"
+                                                    stroke-linejoin="round" stroke-width="1" />
+                                            </g>
+                                        </svg>
+                                    </p>
+                                    <?php endif; ?>
+                                </div>
+                            </div>
+                            <?php 
+                            $teach_btn = get_sub_field('teacher_button');
+                            echo '<div class="teacher-btn">';
+                            if( $teach_btn ) {
+                                $btn_txt = $teach_btn['title'];
+                                $btn_url = $teach_btn['url'];
+                                $btn_trgt = $teach_btn['target'] ? $teach_btn['target'] : '_self';
+                                echo '<a href="'.$btn_url.'" class="siteCTA blue" target="'.$btn_trgt.'">'.$btn_txt.'</a>';
+                            }
+                            echo '</div>';
+                        ?>
+                        </div>
+                        <?php endif; ?>
+                        <?php $tc++; endwhile; endif; ?>
+                    </div>
+                    <?php if( have_rows('teachers') ) : $tc = 1; while( have_rows('teachers') ) : the_row(); ?>
+                    <?php $teacher = get_sub_field('teacher_item'); if( $teacher ): ?>
+                    <div class="modal fade" id="tmodal-<?=$tc;?>" tabindex="-1" aria-labelledby="exampleModalLabel"
+                        aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered modal-xl modal-dialog-scrollable">
+                            <div class="modal-content">
+                                <div class="modal-body p-5">
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                    <div class="row">
+                                        <div class="col-12 col-lg-4">
+                                            <img src="<?=get_the_post_thumbnail_url( $teacher->ID );?>" alt=""
+                                                class="img-fluid">
+                                        </div>
+                                        <div class="col-12 col-lg-8">
+                                            <h3><?php echo esc_html( $teacher->post_title ); ?></h3>
+                                            <div class="bio">
+                                                <?=get_field('bio', $teacher->ID); ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <?php endif; ?>
+                    <?php $tc++; endwhile; endif; ?>
+                </div>
+            </div>
+        </div>
+    </section>
 
 
-<?php elseif (get_row_layout() == 'marketing_review_two_section'): ?>
-<section class="product-testimonial">
-    <?php
+    <?php elseif (get_row_layout() == 'marketing_review_two_section'): ?>
+    <section class="product-testimonial">
+        <?php
                 $review_text = get_sub_field('review');
                 $reviewer_name = get_sub_field('reviewer');
                 if ($review_text && $reviewer_name): ?>
-    <div class="item single-test text-center">
-        <h2><?php echo esc_html($review_text); ?></h2>
-        <p class="job"><?php echo esc_html($reviewer_name); ?></p>
-    </div>
-    <?php endif; ?>
-</section>
+        <div class="item single-test text-center">
+            <h2><?php echo esc_html($review_text); ?></h2>
+            <p class="job"><?php echo esc_html($reviewer_name); ?></p>
+        </div>
+        <?php endif; ?>
+    </section>
 
-<?php elseif (get_row_layout() == 'who_is_it_for_section'): ?>
-<section id="is-course-right-for-you" class="product-title-with-icons-container title-with-icons dark-blue-bg">
-    <div class="container">
-        <div class="row">
-            <!-- Section Title -->
-            <div class="title-wrapper" style="text-align: left;">
-                <p class="white-underline text-uppercase"><?php the_sub_field('sub_heading'); ?></p>
-                <h2><?php the_sub_field('who_is_it_for_heading'); ?></h2>
-            </div>
-            <!-- Icons and Descriptions -->
-            <div class="col-12 product-title-with-icons"
-                style="display: flex; gap: 30px; justify-content: start; align-items: flex-start; flex-wrap: wrap;">
-                <?php 
+    <?php elseif (get_row_layout() == 'who_is_it_for_section'): ?>
+    <section id="is-course-right-for-you" class="product-title-with-icons-container title-with-icons dark-blue-bg">
+        <div class="container">
+            <div class="row">
+                <!-- Section Title -->
+                <div class="title-wrapper" style="text-align: left;">
+                    <p class="white-underline text-uppercase"><?php the_sub_field('sub_heading'); ?></p>
+                    <h2><?php the_sub_field('who_is_it_for_heading'); ?></h2>
+                </div>
+                <!-- Icons and Descriptions -->
+                <div class="col-12 product-title-with-icons"
+                    style="display: flex; gap: 30px; justify-content: start; align-items: flex-start; flex-wrap: wrap;">
+                    <?php 
                 // Get the group field
                 $who_is_it_for = get_sub_field('whoisitforfield');
                 if ($who_is_it_for): ?>
-                <?php
+                    <?php
                     // Hardcoded icons
                     $icon_map = [
                         'job_seniority' => 'https://inpd.heyoo.website/wp-content/uploads/2024/08/network-wired-solid.svg',
@@ -351,8 +460,8 @@ section.imgleft-contr.woo-product-container {
                     ];
                     ?>
 
-                <?php foreach ($who_is_it_for as $key => $value): ?>
-                <?php
+                    <?php foreach ($who_is_it_for as $key => $value): ?>
+                    <?php
                         // Get the icon, title, and description based on the field key
                         $icon = isset($icon_map[$key]) ? $icon_map[$key] : '';
                         $title = '';
@@ -387,37 +496,37 @@ section.imgleft-contr.woo-product-container {
                         }
                         ?>
 
-                <?php if (!empty($icon) && !empty($title) && !empty($description)): ?>
-                <div class="product-title-with-icon--item">
-                    <img src="<?php echo esc_url($icon); ?>" alt="<?php echo esc_attr($title); ?>"
-                        class="product-title-with-icon--item__icon"
-                        style="width: 40px; height: 40px; object-fit: contain; margin-bottom: 1rem;">
-                    <h5><?php echo esc_html($title); ?></h5>
-                    <p><?php echo esc_html($description); ?></p>
+                    <?php if (!empty($icon) && !empty($title) && !empty($description)): ?>
+                    <div class="product-title-with-icon--item">
+                        <img src="<?php echo esc_url($icon); ?>" alt="<?php echo esc_attr($title); ?>"
+                            class="product-title-with-icon--item__icon"
+                            style="width: 40px; height: 40px; object-fit: contain; margin-bottom: 1rem;">
+                        <h5><?php echo esc_html($title); ?></h5>
+                        <p><?php echo esc_html($description); ?></p>
+                    </div>
+                    <?php endif; ?>
+                    <?php endforeach; ?>
+                    <?php endif; ?>
                 </div>
-                <?php endif; ?>
-                <?php endforeach; ?>
-                <?php endif; ?>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<?php elseif( get_row_layout() == 'cent_top_row' ): ?>
-<!-- Centered Top Row -->
-<?php 
+    <?php elseif( get_row_layout() == 'cent_top_row' ): ?>
+    <!-- Centered Top Row -->
+    <?php 
                     $cont = get_sub_field('ctr_content');
                     $sbtn = get_sub_field('ctr_sbtn');
                     $obtn = get_sub_field('ctr_obtn');
                 ?>
-<section class="centered-top">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-lg-6 offset-lg-3">
-                <div class="text-wrapper">
-                    <?=$cont;?>
-                </div>
-                <?php if( $sbtn || $obtn ) {
+    <section class="centered-top">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-6 offset-lg-3">
+                    <div class="text-wrapper">
+                        <?=$cont;?>
+                    </div>
+                    <?php if( $sbtn || $obtn ) {
                                     echo '<div class="button-wrapper">';
                                     if( $sbtn ) {
                                         $sbtn_txt = $sbtn['title'];
@@ -433,35 +542,35 @@ section.imgleft-contr.woo-product-container {
                                     }
                                     echo '</div>';
                                 } ?>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<?php elseif( get_row_layout() == 'blue_accordions' ): ?>
-<!-- Blue Accordion -->
-<section class="accordion-row">
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <div class="accordion" id="bluecard-accordion">
-                    <?php if( have_rows('accordion_rep') ) : $i = 1; while( have_rows('accordion_rep') ) : the_row(); ?>
-                    <?php $numrows = count( get_sub_field( 'acc_content' ) ); ?>
-                    <div class="accordion-item">
-                        <h2 class="accordion-header">
-                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                                data-bs-target="#collapse-<?=$i;?>" aria-expanded="false"
-                                aria-controls="collapse-<?=$i;?>">
-                                <?=get_sub_field('acc_title');?>
-                            </button>
-                        </h2>
-                        <div id="collapse-<?=$i;?>" class="accordion-collapse collapse"
-                            data-bs-parent="#bluecard-accordion">
-                            <div class="accordion-body <?php if( $numrows == 1 ) { echo 'compact'; } ?>">
-                                <?php if( have_rows('acc_content') ) : while( have_rows('acc_content') ) : the_row(); ?>
-                                <?php if( get_row_layout() == 'standard_content' ): ?>
-                                <!-- Standard Content -->
-                                <?php 
+    <?php elseif( get_row_layout() == 'blue_accordions' ): ?>
+    <!-- Blue Accordion -->
+    <section class="accordion-row">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="accordion" id="bluecard-accordion">
+                        <?php if( have_rows('accordion_rep') ) : $i = 1; while( have_rows('accordion_rep') ) : the_row(); ?>
+                        <?php $numrows = count( get_sub_field( 'acc_content' ) ); ?>
+                        <div class="accordion-item">
+                            <h2 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                                    data-bs-target="#collapse-<?=$i;?>" aria-expanded="false"
+                                    aria-controls="collapse-<?=$i;?>">
+                                    <?=get_sub_field('acc_title');?>
+                                </button>
+                            </h2>
+                            <div id="collapse-<?=$i;?>" class="accordion-collapse collapse"
+                                data-bs-parent="#bluecard-accordion">
+                                <div class="accordion-body <?php if( $numrows == 1 ) { echo 'compact'; } ?>">
+                                    <?php if( have_rows('acc_content') ) : while( have_rows('acc_content') ) : the_row(); ?>
+                                    <?php if( get_row_layout() == 'standard_content' ): ?>
+                                    <!-- Standard Content -->
+                                    <?php 
                                                                 $cont = get_sub_field('content');
                                                                 $align = get_sub_field('alignment');
                                                                 if( $align == 'center' ) {
@@ -472,62 +581,63 @@ section.imgleft-contr.woo-product-container {
                                                                     $alignment = '';
                                                                 }
                                                             ?>
-                                <div class="row">
-                                    <div class="col-12 col-lg-10 <?=$alignment;?>">
-                                        <div class="text-<?=$align;?>">
-                                            <?=get_sub_field('content'); ?>
-                                        </div>
-                                    </div>
-                                </div>
-                                <?php elseif( get_row_layout() == '50_50_cards' ): ?>
-                                <!-- 50 50 cards -->
-                                <div class="row align-items-stretch">
-                                    <?php if( have_rows('cards') ) : while( have_rows('cards') ) : the_row(); ?>
-                                    <div class="col-12 col-lg-6">
-                                        <div class="blue-card text-center">
-                                            <?php $icn = get_sub_field('icon'); if( $icn ) : ?>
-                                            <img src="<?=$icn['url'];?>" alt="<?=$icn['alt'];?>" class="img-fluid">
-                                            <?php endif; ?>
-                                            <div class="content">
-                                                <?=get_sub_field('content');?>
+                                    <div class="row">
+                                        <div class="col-12 col-lg-10 <?=$alignment;?>">
+                                            <div class="text-<?=$align;?>">
+                                                <?=get_sub_field('content'); ?>
                                             </div>
                                         </div>
                                     </div>
-                                    <?php endwhile; endif; ?>
-                                </div>
-                                <?php elseif( get_row_layout() == 'tabbed_content' ): ?>
-                                <!-- Tabbed Content -->
-                                <div class="row">
-                                    <div class="centered-tabs">
-                                        <ul class="nav nav-tabs" id="myTab" role="tablist">
-                                            <?php if( have_rows('inner_tab_rep') ) :  $i = 1; while( have_rows('inner_tab_rep') ) : the_row(); ?>
-                                            <li class="nav-item" role="presentation">
-                                                <button class="nav-link <?php if($i == 1) { echo 'active'; } ?>"
-                                                    id="tab-title-<?=$i;?>" data-bs-toggle="tab"
-                                                    data-bs-target="#tab-<?=$i;?>" type="button" role="tab"
-                                                    aria-controls="tab-<?=$i;?>" aria-selected="true">
-                                                    <h2><?=get_sub_field('tab_title');?></h2>
-                                                </button>
-                                            </li>
-                                            <?php $i++; ?>
-                                            <?php endwhile; endif; ?>
-                                        </ul>
-                                        <div class="tab-content" id="myTabContent">
-                                            <?php if( have_rows('inner_tab_rep') ) :  $i = 1; while( have_rows('inner_tab_rep') ) : the_row(); ?>
-                                            <div class="tab-pane fade <?php if($i == 1) { echo 'active show'; } ?>"
-                                                id="tab-<?=$i;?>" role="tabpanel" aria-labelledby="tab-title-<?=$i;?>">
+                                    <?php elseif( get_row_layout() == '50_50_cards' ): ?>
+                                    <!-- 50 50 cards -->
+                                    <div class="row align-items-stretch">
+                                        <?php if( have_rows('cards') ) : while( have_rows('cards') ) : the_row(); ?>
+                                        <div class="col-12 col-lg-6">
+                                            <div class="blue-card text-center">
+                                                <?php $icn = get_sub_field('icon'); if( $icn ) : ?>
+                                                <img src="<?=$icn['url'];?>" alt="<?=$icn['alt'];?>" class="img-fluid">
+                                                <?php endif; ?>
                                                 <div class="content">
-                                                    <?=get_sub_field('tab_content');?>
+                                                    <?=get_sub_field('content');?>
                                                 </div>
                                             </div>
-                                            <?php $i++; ?>
-                                            <?php endwhile; endif; ?>
+                                        </div>
+                                        <?php endwhile; endif; ?>
+                                    </div>
+                                    <?php elseif( get_row_layout() == 'tabbed_content' ): ?>
+                                    <!-- Tabbed Content -->
+                                    <div class="row">
+                                        <div class="centered-tabs">
+                                            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                                                <?php if( have_rows('inner_tab_rep') ) :  $i = 1; while( have_rows('inner_tab_rep') ) : the_row(); ?>
+                                                <li class="nav-item" role="presentation">
+                                                    <button class="nav-link <?php if($i == 1) { echo 'active'; } ?>"
+                                                        id="tab-title-<?=$i;?>" data-bs-toggle="tab"
+                                                        data-bs-target="#tab-<?=$i;?>" type="button" role="tab"
+                                                        aria-controls="tab-<?=$i;?>" aria-selected="true">
+                                                        <h2><?=get_sub_field('tab_title');?></h2>
+                                                    </button>
+                                                </li>
+                                                <?php $i++; ?>
+                                                <?php endwhile; endif; ?>
+                                            </ul>
+                                            <div class="tab-content" id="myTabContent">
+                                                <?php if( have_rows('inner_tab_rep') ) :  $i = 1; while( have_rows('inner_tab_rep') ) : the_row(); ?>
+                                                <div class="tab-pane fade <?php if($i == 1) { echo 'active show'; } ?>"
+                                                    id="tab-<?=$i;?>" role="tabpanel"
+                                                    aria-labelledby="tab-title-<?=$i;?>">
+                                                    <div class="content">
+                                                        <?=get_sub_field('tab_content');?>
+                                                    </div>
+                                                </div>
+                                                <?php $i++; ?>
+                                                <?php endwhile; endif; ?>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                                <?php elseif( get_row_layout() == 'full_width_cta' ): ?>
-                                <!-- Full width CTA -->
-                                <?php 
+                                    <?php elseif( get_row_layout() == 'full_width_cta' ): ?>
+                                    <!-- Full width CTA -->
+                                    <?php 
                                                                 $row_bg = get_sub_field('background_colour'); 
                                                                 if( $row_bg == 'light-blue-bg' ) {
                                                                     $btn_clr = 'blue';
@@ -535,12 +645,12 @@ section.imgleft-contr.woo-product-container {
                                                                     $btn_clr = 'white';
                                                                 }
                                                             ?>
-                                <div class="row align-items-center cta-card <?=$row_bg;?>">
-                                    <div class="col-12 col-lg-6">
-                                        <div class="text-wrapper"><?=get_sub_field('content');?></div>
-                                    </div>
-                                    <div class="col-12 col-lg-5 offset-lg-1">
-                                        <?php 
+                                    <div class="row align-items-center cta-card <?=$row_bg;?>">
+                                        <div class="col-12 col-lg-6">
+                                            <div class="text-wrapper"><?=get_sub_field('content');?></div>
+                                        </div>
+                                        <div class="col-12 col-lg-5 offset-lg-1">
+                                            <?php 
                                                                         $fw_cta_btn = get_sub_field('button');
                                                                         echo '<div class="button-wrapper">';
                                                                         if( $fw_cta_btn ) {
@@ -551,16 +661,16 @@ section.imgleft-contr.woo-product-container {
                                                                         }
                                                                         echo '</div>';
                                                                     ?>
+                                        </div>
                                     </div>
+                                    <?php endif; ?>
+                                    <?php endwhile; endif; ?>
                                 </div>
-                                <?php endif; ?>
-                                <?php endwhile; endif; ?>
                             </div>
                         </div>
+                        <?php $i++; endwhile; endif; ?>
                     </div>
-                    <?php $i++; endwhile; endif; ?>
-                </div>
-                <?php 
+                    <?php 
                                     $acr_btn = get_sub_field('acr_button');
                                     echo '<div class="button-wrapper text-center mt-5">';
                                     if( $acr_btn ) {
@@ -571,28 +681,28 @@ section.imgleft-contr.woo-product-container {
                                     }
                                     echo '</div>';
                                 ?>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
-<?php elseif( get_row_layout() == 'title_4_col_cont_8_col' ) : ?>
-<!-- Title (4) Content (8) -->
-<?php $title_font = get_sub_field('t4c8_title_font'); ?>
-<section class="title4-cont8 <?=get_sub_field('t4c8_bg');?>">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-lg-4">
-                <div class="title-wrapper">
-                    <h2 class="<?=$title_font;?>"><?=get_sub_field('tc_title');?></h2>
+    <?php elseif( get_row_layout() == 'title_4_col_cont_8_col' ) : ?>
+    <!-- Title (4) Content (8) -->
+    <?php $title_font = get_sub_field('t4c8_title_font'); ?>
+    <section class="title4-cont8 <?=get_sub_field('t4c8_bg');?>">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-4">
+                    <div class="title-wrapper">
+                        <h2 class="<?=$title_font;?>"><?=get_sub_field('tc_title');?></h2>
+                    </div>
                 </div>
-            </div>
-            <div class="col-12 col-lg-8">
-                <div class="text-wrapper">
-                    <?=get_sub_field('tc_content');?>
-                </div>
-                <?php 
+                <div class="col-12 col-lg-8">
+                    <div class="text-wrapper">
+                        <?=get_sub_field('tc_content');?>
+                    </div>
+                    <?php 
                                     $tc_btn = get_sub_field('tc_button');
                                     if( $tc_btn ) {
                                         echo '<div class="button-wrapper mt-4">';
@@ -603,48 +713,48 @@ section.imgleft-contr.woo-product-container {
                                         echo '</div>';
                                     } 
                                 ?>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<?php elseif( get_row_layout() == 'cent_tabs' ) : ?>
-<!-- Centered Tabs -->
-<section class="centered-tabs">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-lg-8 offset-lg-2">
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <?php if( have_rows('ct_tab_rep') ) :  $i = 1; while( have_rows('ct_tab_rep') ) : the_row(); ?>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link <?php if($i == 1) { echo 'active'; } ?>" id="tab-title-<?=$i;?>"
-                            data-bs-toggle="tab" data-bs-target="#tab-<?=$i;?>" type="button" role="tab"
-                            aria-controls="tab-<?=$i;?>" aria-selected="true">
-                            <h2><?=get_sub_field('tab_title');?></h2>
-                        </button>
-                    </li>
-                    <?php $i++; ?>
-                    <?php endwhile; endif; ?>
-                </ul>
-                <div class="tab-content" id="myTabContent">
-                    <?php if( have_rows('ct_tab_rep') ) :  $i = 1; while( have_rows('ct_tab_rep') ) : the_row(); ?>
-                    <div class="tab-pane fade <?php if($i == 1) { echo 'active show'; } ?>" id="tab-<?=$i;?>"
-                        role="tabpanel" aria-labelledby="tab-title-<?=$i;?>">
-                        <div class="content">
-                            <?=get_sub_field('tab_content');?>
-                        </div>
-                        <?php if( get_sub_field('show_icons_inside_tab') ) : ?>
-                        <div class="icon-wrapper">
-                            <?php while( have_rows('tab_icon_repeater') ) : the_row(); ?>
-                            <div class="item">
-                                <?php $it_icon = get_sub_field('ir_icon'); ?>
-                                <img src="<?=$it_icon['url'];?>" alt="<?=$it_icon['alt'];?>" class="img-fluid">
-                                <p><?=get_sub_field('ir_text');?></p>
+    <?php elseif( get_row_layout() == 'cent_tabs' ) : ?>
+    <!-- Centered Tabs -->
+    <section class="centered-tabs">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8 offset-lg-2">
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <?php if( have_rows('ct_tab_rep') ) :  $i = 1; while( have_rows('ct_tab_rep') ) : the_row(); ?>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link <?php if($i == 1) { echo 'active'; } ?>" id="tab-title-<?=$i;?>"
+                                data-bs-toggle="tab" data-bs-target="#tab-<?=$i;?>" type="button" role="tab"
+                                aria-controls="tab-<?=$i;?>" aria-selected="true">
+                                <h2><?=get_sub_field('tab_title');?></h2>
+                            </button>
+                        </li>
+                        <?php $i++; ?>
+                        <?php endwhile; endif; ?>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <?php if( have_rows('ct_tab_rep') ) :  $i = 1; while( have_rows('ct_tab_rep') ) : the_row(); ?>
+                        <div class="tab-pane fade <?php if($i == 1) { echo 'active show'; } ?>" id="tab-<?=$i;?>"
+                            role="tabpanel" aria-labelledby="tab-title-<?=$i;?>">
+                            <div class="content">
+                                <?=get_sub_field('tab_content');?>
                             </div>
-                            <?php endwhile; ?>
-                        </div>
-                        <?php endif; ?>
-                        <?php
+                            <?php if( get_sub_field('show_icons_inside_tab') ) : ?>
+                            <div class="icon-wrapper">
+                                <?php while( have_rows('tab_icon_repeater') ) : the_row(); ?>
+                                <div class="item">
+                                    <?php $it_icon = get_sub_field('ir_icon'); ?>
+                                    <img src="<?=$it_icon['url'];?>" alt="<?=$it_icon['alt'];?>" class="img-fluid">
+                                    <p><?=get_sub_field('ir_text');?></p>
+                                </div>
+                                <?php endwhile; ?>
+                            </div>
+                            <?php endif; ?>
+                            <?php
                                                 $it_btn = get_sub_field('tab_inner_button');
                                                 echo '<div class="button-wrapper">';
                                                 if( $it_btn ) {
@@ -655,38 +765,38 @@ section.imgleft-contr.woo-product-container {
                                                 }
                                                 echo '</div>';
                                             ?>
+                        </div>
+                        <?php $i++; ?>
+                        <?php endwhile; endif; ?>
                     </div>
-                    <?php $i++; ?>
-                    <?php endwhile; endif; ?>
                 </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
-<?php elseif (get_row_layout() == 'in-house_approach_section'): ?>
-<section class="title-with-cards grey-bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-lg-8 offset-lg-2">
-                <div class="title-wrapper">
-                    <p class="blue-underline lw-50 text-uppercase center"><?php the_sub_field('sub_heading'); ?></p>
-                    <h2><?php the_sub_field('heading'); ?></h2>
-                    <?php the_sub_field('content'); ?>
-                </div>
-                <div class="text-center mt-5"
-                    style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: center;">
-                    <a href="<?php the_sub_field('button_one_url'); ?>"
-                        class="siteCTA blue"><?php the_sub_field('button_one_text'); ?></a>
-                    <a href="<?php the_sub_field('button_two_url'); ?>"
-                        class="siteCTA blue"><?php the_sub_field('button_two_text'); ?></a>
+    <?php elseif (get_row_layout() == 'in-house_approach_section'): ?>
+    <section class="title-with-cards grey-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8 offset-lg-2">
+                    <div class="title-wrapper">
+                        <p class="blue-underline lw-50 text-uppercase center"><?php the_sub_field('sub_heading'); ?></p>
+                        <h2><?php the_sub_field('heading'); ?></h2>
+                        <?php the_sub_field('content'); ?>
+                    </div>
+                    <div class="text-center mt-5"
+                        style="display: flex; flex-wrap: wrap; gap: 1rem; align-items: center; justify-content: center;">
+                        <a href="<?php the_sub_field('button_one_url'); ?>"
+                            class="siteCTA blue"><?php the_sub_field('button_one_text'); ?></a>
+                        <a href="<?php the_sub_field('button_two_url'); ?>"
+                            class="siteCTA blue"><?php the_sub_field('button_two_text'); ?></a>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-</section>
-<?php elseif (get_row_layout() == 'upcoming_courses_section' && $product && $product->is_type('variable')): ?>
-<?php
+    </section>
+    <?php elseif (get_row_layout() == 'upcoming_courses_section' && $product && $product->is_type('variable')): ?>
+    <?php
 // Dynamically get the current product ID
 $product_id = get_the_ID();
 $product = wc_get_product($product_id);
@@ -730,137 +840,137 @@ if ($product && $product->is_type('variable')) {
         }
     }
 ?>
-<?php if (!empty($virtual_variants) || !empty($face_to_face_variants) || !empty($in_house_variants)) : ?>
-<section class="product-centered-tabs centered-tabs white-bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-12 col-lg-8 offset-lg-2">
-                <div class="title-wrapper">
-                    <p class="blue-underline lw-50 text-uppercase center"><?php the_sub_field('sub_heading'); ?></p>
-                    <h2><?php the_sub_field('heading'); ?></h2>
-                </div>
-                <!-- Tabs Navigation -->
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item">
-                        <button class="nav-link active" id="virtual-tab" data-bs-toggle="tab" data-bs-target="#virtual"
-                            type="button" role="tab">VIRTUAL</button>
-                    </li>
-                    <li>|</li>
-                    <li class="nav-item">
-                        <button class="nav-link" id="face-to-face-tab" data-bs-toggle="tab"
-                            data-bs-target="#face-to-face" type="button" role="tab">FACE TO FACE</button>
-                    </li>
-                    <li>|</li>
-                    <li class="nav-item">
-                        <button class="nav-link" id="in-house-tab" data-bs-toggle="tab" data-bs-target="#in-house"
-                            type="button" role="tab">IN HOUSE</button>
-                    </li>
-                </ul>
+    <?php if (!empty($virtual_variants) || !empty($face_to_face_variants) || !empty($in_house_variants)) : ?>
+    <section class="product-centered-tabs centered-tabs white-bg">
+        <div class="container">
+            <div class="row">
+                <div class="col-12 col-lg-8 offset-lg-2">
+                    <div class="title-wrapper">
+                        <p class="blue-underline lw-50 text-uppercase center"><?php the_sub_field('sub_heading'); ?></p>
+                        <h2><?php the_sub_field('heading'); ?></h2>
+                    </div>
+                    <!-- Tabs Navigation -->
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <button class="nav-link active" id="virtual-tab" data-bs-toggle="tab"
+                                data-bs-target="#virtual" type="button" role="tab">VIRTUAL</button>
+                        </li>
+                        <li>|</li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="face-to-face-tab" data-bs-toggle="tab"
+                                data-bs-target="#face-to-face" type="button" role="tab">FACE TO FACE</button>
+                        </li>
+                        <li>|</li>
+                        <li class="nav-item">
+                            <button class="nav-link" id="in-house-tab" data-bs-toggle="tab" data-bs-target="#in-house"
+                                type="button" role="tab">IN HOUSE</button>
+                        </li>
+                    </ul>
 
-                <!-- Tabs Content -->
-                <div class="tab-content" id="programmeTabsContent">
-                    <!-- Virtual Tab -->
-                    <div class="tab-pane fade show active" id="virtual" role="tabpanel">
-                        <div class="row">
-                            <?php if (!empty($virtual_variants)) { 
+                    <!-- Tabs Content -->
+                    <div class="tab-content" id="programmeTabsContent">
+                        <!-- Virtual Tab -->
+                        <div class="tab-pane fade show active" id="virtual" role="tabpanel">
+                            <div class="row">
+                                <?php if (!empty($virtual_variants)) { 
                                 foreach ($virtual_variants as $variant) { ?>
-                            <div class="col-md-6">
-                                <div class="variant-card">
-                                    <h3><?php echo esc_html($variant['date']); ?> -
-                                        <?php echo esc_html($variant['time']); ?></h3>
-                                    <p><strong>Location:</strong> <?php echo esc_html($variant['location']); ?></p>
-                                    <p><strong>Price:</strong> <?php echo $variant['price']; ?></p>
-                                    <p><?php echo esc_html($variant['availability']); ?></p>
-                                    <a href="<?php echo esc_url($variant['add_to_cart_url']); ?>"
-                                        class="siteCTA blue">Book Your Place</a>
+                                <div class="col-md-6">
+                                    <div class="variant-card">
+                                        <h3><?php echo esc_html($variant['date']); ?> -
+                                            <?php echo esc_html($variant['time']); ?></h3>
+                                        <p><strong>Location:</strong> <?php echo esc_html($variant['location']); ?></p>
+                                        <p><strong>Price:</strong> <?php echo $variant['price']; ?></p>
+                                        <p><?php echo esc_html($variant['availability']); ?></p>
+                                        <a href="<?php echo esc_url($variant['add_to_cart_url']); ?>"
+                                            class="siteCTA blue">Book Your Place</a>
+                                    </div>
                                 </div>
+                                <?php } } else { echo "<p>No virtual training sessions available.</p>"; } ?>
                             </div>
-                            <?php } } else { echo "<p>No virtual training sessions available.</p>"; } ?>
                         </div>
-                    </div>
 
-                    <!-- Face to Face Tab -->
-                    <div class="tab-pane fade" id="face-to-face" role="tabpanel">
-                        <div class="row">
-                            <?php if (!empty($face_to_face_variants)) { 
+                        <!-- Face to Face Tab -->
+                        <div class="tab-pane fade" id="face-to-face" role="tabpanel">
+                            <div class="row">
+                                <?php if (!empty($face_to_face_variants)) { 
                                 foreach ($face_to_face_variants as $variant) { ?>
-                            <div class="col-md-6">
-                                <div class="variant-card">
-                                    <h3><?php echo esc_html($variant['date']); ?> -
-                                        <?php echo esc_html($variant['time']); ?></h3>
-                                    <p><strong>Location:</strong> <?php echo esc_html($variant['location']); ?></p>
-                                    <p><strong>Price:</strong> <?php echo $variant['price']; ?></p>
-                                    <p><?php echo esc_html($variant['availability']); ?></p>
-                                    <a href="<?php echo esc_url($variant['add_to_cart_url']); ?>"
-                                        class="siteCTA blue">Book Your Place</a>
+                                <div class="col-md-6">
+                                    <div class="variant-card">
+                                        <h3><?php echo esc_html($variant['date']); ?> -
+                                            <?php echo esc_html($variant['time']); ?></h3>
+                                        <p><strong>Location:</strong> <?php echo esc_html($variant['location']); ?></p>
+                                        <p><strong>Price:</strong> <?php echo $variant['price']; ?></p>
+                                        <p><?php echo esc_html($variant['availability']); ?></p>
+                                        <a href="<?php echo esc_url($variant['add_to_cart_url']); ?>"
+                                            class="siteCTA blue">Book Your Place</a>
+                                    </div>
                                 </div>
+                                <?php } } else { echo "<p>No face-to-face training sessions available.</p>"; } ?>
                             </div>
-                            <?php } } else { echo "<p>No face-to-face training sessions available.</p>"; } ?>
                         </div>
-                    </div>
 
-                    <!-- In House Tab -->
-                    <div class="tab-pane fade" id="in-house" role="tabpanel">
-                        <div class="row">
-                            <?php if (!empty($in_house_variants)) { 
+                        <!-- In House Tab -->
+                        <div class="tab-pane fade" id="in-house" role="tabpanel">
+                            <div class="row">
+                                <?php if (!empty($in_house_variants)) { 
                                 foreach ($in_house_variants as $variant) { ?>
-                            <div class="col-md-6">
-                                <div class="variant-card">
-                                    <h3><?php echo esc_html($variant['date']); ?> -
-                                        <?php echo esc_html($variant['time']); ?></h3>
-                                    <p><strong>Location:</strong> <?php echo esc_html($variant['location']); ?></p>
-                                    <p><strong>Price:</strong> <?php echo $variant['price']; ?></p>
-                                    <p><?php echo esc_html($variant['availability']); ?></p>
-                                    <a href="<?php echo esc_url($variant['add_to_cart_url']); ?>"
-                                        class="siteCTA blue">Book Your Place</a>
+                                <div class="col-md-6">
+                                    <div class="variant-card">
+                                        <h3><?php echo esc_html($variant['date']); ?> -
+                                            <?php echo esc_html($variant['time']); ?></h3>
+                                        <p><strong>Location:</strong> <?php echo esc_html($variant['location']); ?></p>
+                                        <p><strong>Price:</strong> <?php echo $variant['price']; ?></p>
+                                        <p><?php echo esc_html($variant['availability']); ?></p>
+                                        <a href="<?php echo esc_url($variant['add_to_cart_url']); ?>"
+                                            class="siteCTA blue">Book Your Place</a>
+                                    </div>
                                 </div>
+                                <?php } } else { echo "<p>No in-house training sessions available.</p>"; } ?>
                             </div>
-                            <?php } } else { echo "<p>No in-house training sessions available.</p>"; } ?>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
-    <style>
-    .variant-card {
-        min-height: 270px;
-        border: 1px solid #ddd;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 20px;
-        background: #fff;
-        box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
-    }
+        <style>
+        .variant-card {
+            min-height: 270px;
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            background: #fff;
+            box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+        }
 
-    .variant-card h3 {
-        font-size: 18px;
-        margin-bottom: 5px;
-    }
+        .variant-card h3 {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
 
-    .variant-card p {
-        margin: 5px 0;
-    }
+        .variant-card p {
+            margin: 5px 0;
+        }
 
-    .variant-card .siteCTA {
-        display: block;
-        width: fit-content;
-        margin: 0 auto;
-        margin-top: 1rem;
-    }
-    </style>
-</section>
-<?php endif; ?>
-<?php } else { ?>
-<p>No available training sessions.</p>
-<?php } ?>
+        .variant-card .siteCTA {
+            display: block;
+            width: fit-content;
+            margin: 0 auto;
+            margin-top: 1rem;
+        }
+        </style>
+    </section>
+    <?php endif; ?>
+    <?php } else { ?>
+    <p>No available training sessions.</p>
+    <?php } ?>
 
 
-<?php elseif (get_row_layout() == 'contact_section'): ?>
-<section id="speakToTeam" class="speak-to-team dark-blue-bg">
-    <div class="container">
-        <div class="row">
-            <?php
+    <?php elseif (get_row_layout() == 'contact_section'): ?>
+    <section id="speakToTeam" class="speak-to-team dark-blue-bg">
+        <div class="container">
+            <div class="row">
+                <?php
             // Get the ACF group field
             $contact_section = get_field('contact_section'); 
 
@@ -868,85 +978,98 @@ if ($product && $product->is_type('variable')) {
                 $intro_content = $contact_section['cr_intro']; // Intro content
                 $form_embed = $contact_section['cr_form_embed']; // Form embed content
             ?>
-            <div class="col-12 col-lg-5">
-                <div class="text-wrapper">
-                    <div class="intro-text">
-                        <?php echo wp_kses_post($intro_content); ?>
+                <div class="col-12 col-lg-5">
+                    <div class="text-wrapper">
+                        <div class="intro-text">
+                            <?php echo wp_kses_post($intro_content); ?>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-12 col-lg-6 offset-lg-1">
-                <div class="form-wrapper underlined-inputs">
-                    <?php 
+                <div class="col-12 col-lg-6 offset-lg-1">
+                    <div class="form-wrapper underlined-inputs">
+                        <?php 
                     // Output the raw form embed content to ensure the JavaScript runs
                     echo $form_embed; 
                     ?>
+                    </div>
                 </div>
+                <?php endif; ?>
             </div>
-            <?php endif; ?>
         </div>
-    </div>
-</section>
+    </section>
 
-<?php elseif (get_row_layout() == 'related_products'): ?>
-<!-- Start WooCommerce Related Products Section -->
-<div id="product-content" class="home-courses related-products-section grey-bg">
-    <div class="container">
-        <div class="text-wrapper">
-            <p class="blue-underline text-uppercase"><?php the_sub_field('sub_heading'); ?></p>
-            <h2><?php the_sub_field('heading'); ?></h2>
-        </div>
-        <div class="row">
-            <?php
+    <?php elseif (get_row_layout() == 'related_products'): ?>
+    <!-- Start WooCommerce Related Products Section -->
+    <div id="product-content" class="home-courses related-products-section grey-bg">
+        <div class="container">
+            <div class="text-wrapper">
+                <p class="blue-underline text-uppercase"><?php the_sub_field('sub_heading'); ?></p>
+                <h2><?php the_sub_field('heading'); ?></h2>
+            </div>
+            <div class="row">
+                <?php
             global $product;
 
-            $related_products = wc_get_related_products( $product->get_id(), 4 );
+            $related_products = wc_get_related_products( $product->get_id(), 3 );
 
             if ( $related_products ) : ?>
-            <div class="col-12">
-                <div class="filter"></div>
-                <div class="course-wrapper">
-                    <?php foreach ( $related_products as $related_product_id ) :
+                <div class="col-12">
+                    <div class="filter"></div>
+                    <div class="course-wrapper">
+                        <?php foreach ( $related_products as $related_product_id ) :
                             $related_product = wc_get_product( $related_product_id );
                             $product_title = $related_product->get_name();
                             $product_price = $related_product->get_price_html();
                             $product_permalink = get_permalink( $related_product_id );
                             $product_image = wp_get_attachment_url( $related_product->get_image_id() );
                         ?>
-                    <div class="single-course">
-                        <div class="top">
-                            <img src="<?php echo esc_url( $product_image ); ?>" alt="Card Header" class="img-fluid">
-                        </div>
-                        <div class="content ">
-                            <!-- <p class="course-class"><?php echo esc_html( $related_product->get_type() ); ?></p> -->
-                            <h4><?php echo esc_html( $product_title ); ?></h4>
-                            <p><?php echo wp_strip_all_tags(get_the_excerpt()); ?></p>
-                            <div class="meta">
-                                <p class="price"><?php echo wp_kses_post( $product_price ); ?></p>
+                        <div class="single-course">
+                            <div class="top">
+                                <img src="<?php echo esc_url( $product_image ); ?>" alt="Card Header" class="img-fluid">
                             </div>
-                            <a href="<?php echo esc_url( $product_permalink ); ?>" class="siteCTA">Visit Course</a>
+                            <div class="content ">
+                                <!-- <p class="course-class"><?php echo esc_html( $related_product->get_type() ); ?></p> -->
+                                <h4><?php echo esc_html( $product_title ); ?></h4>
+                                <p><?php echo wp_strip_all_tags(get_the_excerpt()); ?></p>
+                                <div class="meta">
+                                    <?php 
+                                        while( have_rows('product_meta_fields') ) : the_row();
+                                            $dm = get_sub_field('duration_delivery_method');
+                                            $loc = get_sub_field('location');
+                                        endwhile;
+                                    ?>
+                                    <?php if( wc_get_product(get_the_ID())->get_price_html() ) : ?>
+                                    <p class="price">
+                                        <?php echo wp_kses_post(wc_get_product(get_the_ID())->get_price_html()); ?></p>
+                                    <?php endif; if( $dm ) : ?>
+                                    <p class="duration"><?=$dm;?></p>
+                                    <?php endif; if( $loc ) : ?>
+                                    <p class="location"><?=$loc;?></p>
+                                    <?php endif; ?>
+                                </div>
+                                <a href="<?php echo esc_url( $product_permalink ); ?>" class="siteCTA">Visit Course</a>
+                            </div>
                         </div>
+                        <?php endforeach; ?>
                     </div>
-                    <?php endforeach; ?>
-                </div>
-                <?php
+                    <?php
                     $shop_link = the_sub_field('view_more_courses_url'); 
                     ?>
-                <div class="text-center py-5">
-                    <a href="<?php echo esc_url( $shop_link ); ?>" class="siteCTA blue">View More Courses</a>
+                    <div class="text-center py-5">
+                        <a href="<?php echo esc_url( $shop_link ); ?>" class="siteCTA blue">View More Courses</a>
+                    </div>
                 </div>
+                <?php endif; ?>
             </div>
-            <?php endif; ?>
         </div>
     </div>
-</div>
-<!-- End WooCommerce Related Products Section -->
+    <!-- End WooCommerce Related Products Section -->
 
-<?php endif; ?>
-<?php endwhile; ?>
-<?php endif; ?>
+    <?php endif; ?>
+    <?php endwhile; ?>
+    <?php endif; ?>
 
-
+</main>
 <?php
 get_footer();
 
