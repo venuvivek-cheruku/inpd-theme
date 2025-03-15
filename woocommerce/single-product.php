@@ -154,7 +154,7 @@ section.imgleft-contr.woo-product-container {
                         <div class="modal-content">
                             <span id="courseVariantsCloseModal" class="close-modal">Close <span>&times;</span></span>
                             <div class="container">
-                                <?php echo do_shortcode('[pvtfw_table_display id="' . esc_attr($product_id) . '"]'); ?>
+                            <?php echo do_shortcode('[pvtfw_table_display id="' . esc_attr($product_id) . '"]'); ?>
                             </div>
                         </div>
                     </div>
@@ -194,8 +194,8 @@ section.imgleft-contr.woo-product-container {
                 <div class="text-wrapper">
                     <p class="white-underline text-uppercase">Download our brochure</p>
                     <h2><?php the_sub_field('brochure_heading'); ?></h2>
-                    <div class="course-actions-landing">
-                        <a style="margin-right: 20px;" href="#" class="siteCTA" target="_self">Speak to an Expert</a>
+                    <div class="course-actions-landing" style="margin-top: 20px;">
+                        <a style="margin-right: 20px;color: #102e43;" href="#"  class="siteCTA" target="_self">Speak to an Expert</a>
                         <?php
                                     $brochure = get_sub_field('brochure_link'); 
                                     if ($brochure):

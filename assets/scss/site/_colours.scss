@@ -9,6 +9,9 @@ $white: #ffffff;
     background: $dark-blue;
     .row {
         color: $white;
+        a {
+            color: #fff;
+        }
     }
 }
 .light-blue-bg {

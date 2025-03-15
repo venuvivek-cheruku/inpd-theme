@@ -1001,7 +1001,6 @@ section.woo-single-container .course-variants-modal .modal-content {
 @media screen and (max-width: 768px) {
   section.woo-single-container .course-variants-modal .modal-content {
     width: 90%;
-    padding: 10px;
   }
 }
 section.woo-single-container

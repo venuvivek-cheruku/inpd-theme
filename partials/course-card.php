@@ -1,5 +1,6 @@
 <div class="single-course">
-    <div class="top">
+    <div class="top position-relative">
+        <a href="<?=get_the_permalink( get_the_ID() ); ?>" class="abs-link"><span class="d-none">View Course</span></a>
         <?php if( get_the_post_thumbnail_url(get_the_ID(), 'large') ) : ?>
         <img src="<?php echo esc_url(get_the_post_thumbnail_url(get_the_ID(), 'large')); ?>" alt="Card Header"
             class="img-fluid">

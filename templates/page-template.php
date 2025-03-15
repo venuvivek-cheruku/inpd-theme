@@ -818,6 +818,7 @@
                                             $icon = get_sub_field('icon');
                                             $title = get_sub_field('card_title');
                                             $cont = get_sub_field('card_content');
+                                            $btn = get_sub_field('button');
                                         ?>
                                         <div class="item">
                                             <div class="blue-card">
@@ -826,6 +827,16 @@
                                                 <?php endif; ?>
                                                 <h4><?=$title;?></h4>
                                                 <p><?=$cont;?></p>
+                                                <?php if( $btn ) : ?>
+                                                    <div class="button-wrapper mt-4">
+                                                        <?php
+                                                            $btn_title = $btn['title'];
+                                                            $btn_url = $btn['url'];
+                                                            $btn_target = $btn['target'] ? $btn['target'] : '_self';
+                                                        ?>
+                                                        <a href="<?=$btn_url;?>" class="siteCTA white" target="<?=$btn_target;?>"><?=$btn_title;?></a>
+                                                    </div>
+                                                <?php endif; ?>
                                             </div>
                                         </div>
                                     <?php endwhile; endif; ?>
@@ -1843,7 +1854,7 @@
                             <div class="col-12">
                                 <div class="course-wrapper">
                                     <?php $loop_cat = get_sub_field('loop_category'); if( $loop_cat ) : ?>
-                                        <?=do_shortcode('[product_loop category="' . esc_attr($loop_cat->slug) . '"]');?>
+                                        <?=do_shortcode('[product_loop category="' . esc_attr($loop_cat->slug) . '" count="'.get_sub_field('loop_count').'"]');?>
                                     <?php endif; ?>
                                 </div>
                             </div>
@@ -1891,52 +1902,24 @@
                                         <li>
                                             Filter by:
                                         </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link active" id="directors-tab" data-bs-toggle="tab" data-bs-target="#directors" type="button" role="tab" aria-controls="directors" aria-selected="true">Directors</button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="leadership-tab" data-bs-toggle="tab" data-bs-target="#leadership" type="button" role="tab" aria-controls="leadership" aria-selected="false">Leadership</button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="sales-leadership-tab" data-bs-toggle="tab" data-bs-target="#sales-leadership" type="button" role="tab" aria-controls="sales-leadership" aria-selected="false">Sales Leadership</button>
-                                        </li>
-                                        <li class="nav-item" role="presentation">
-                                            <button class="nav-link" id="management-tab" data-bs-toggle="tab" data-bs-target="#management" type="button" role="tab" aria-controls="management" aria-selected="false">Management</button>
-                                        </li>
+                                        <?php if( have_rows('course_tabs') ) : $tc = 1; while( have_rows('course_tabs') ) : the_row(); ?>
+                                            <li class="nav-item" role="presentation">
+                                                <button class="nav-link <?php if( $tc == 1 ) { echo 'active'; } ?>" id="<?=get_sub_field('course_category')->slug;?>-tabbtn" data-bs-toggle="tab" data-bs-target="#<?=get_sub_field('course_category')->slug;?>-tab" type="button" role="tab" aria-controls="<?=get_sub_field('course_category')->slug;?>" aria-selected="true"><?=get_sub_field('tab_name');?></button>
+                                            </li>
+                                        <?php $tc++; endwhile; endif; ?>
                                     </ul>
                                     <div class="tab-content" id="myTabContent">
-                                        <div class="tab-pane fade show active" id="directors" role="tabpanel" aria-labelledby="directors-tab">
-                                            <div class="course-wrapper">
-                                                <?=do_shortcode('[product_loop category="director-training"]');?>
+                                        <?php if( have_rows('course_tabs') ) : $tc = 1; while( have_rows('course_tabs') ) : the_row(); ?>
+                                            <?php $slug = get_sub_field('course_category')->slug; ?>
+                                            <div class="tab-pane fade <?php if( $tc == 1 ) { echo 'show active'; } ?>" id="<?=$slug;?>-tab" role="tabpanel" aria-labelledby="<?=$slug;?>-tab">
+                                                <div class="course-wrapper">
+                                                    <?=do_shortcode('[product_loop category="'.$slug.'"]');?>
+                                                </div>
+                                                <div class="text-center mt-5">
+                                                    <a href="/our-courses" class="siteCTA blue">All courses</a>
+                                                </div>
                                             </div>
-                                            <div class="text-center mt-5">
-                                                <a href="/our-courses" class="siteCTA blue">All courses</a>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="leadership" role="tabpanel" aria-labelledby="leadership-tab">
-                                            <div class="course-wrapper">
-                                                <?=do_shortcode('[product_loop category="leadership"]');?>
-                                            </div>
-                                            <div class="text-center mt-5">
-                                                <a href="/our-courses" class="siteCTA blue">All courses</a>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="sales-leadership" role="tabpanel" aria-labelledby="sales-leadership-tab">
-                                            <div class="course-wrapper">
-                                                <?=do_shortcode('[product_loop category="sales-leadership"]');?>
-                                            </div>
-                                            <div class="text-center mt-5">
-                                                <a href="/our-courses" class="siteCTA blue">All courses</a>
-                                            </div>
-                                        </div>
-                                        <div class="tab-pane fade" id="management" role="tabpanel" aria-labelledby="management-tab">
-                                            <div class="course-wrapper">
-                                                <?=do_shortcode('[product_loop category="management"]');?>
-                                            </div>
-                                            <div class="text-center mt-5">
-                                                <a href="/our-courses" class="siteCTA blue">All courses</a>
-                                            </div>
-                                        </div>
+                                        <?php $tc++; endwhile; endif; ?>
                                     </div>
                                 </div>
                             </div>

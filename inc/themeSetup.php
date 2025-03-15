@@ -273,6 +273,7 @@ function custom_product_loop_shortcode($atts) {
     $atts = shortcode_atts(
         array(
             'category' => '', // Default empty
+            'count' => '6' //Default 6
         ), 
         $atts, 
         'product_loop'
@@ -285,7 +286,7 @@ function custom_product_loop_shortcode($atts) {
     // Query WooCommerce products in the specified category
     $args = array(
         'post_type'      => 'product',
-        'posts_per_page' => 6, // Adjust as needed
+        'posts_per_page' => $atts['count'], // Adjust as needed
         'tax_query'      => array(
             array(
                 'taxonomy' => 'product_cat',
